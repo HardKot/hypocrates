@@ -1,0 +1,15 @@
+{
+  "name": "Hypocrates backend",
+  "build": {
+    "context": "../backend",
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "node",
+
+  "customizations" : {
+    "jetbrains" : {
+      "backend" : "WebStorm"
+    }
+  }
+
+}

@@ -1,0 +1,81 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      MONGO_USERNAME: root
+      MONGO_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MINIO_USER: root
+      MINIO_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    depends_on:
+      - mongo
+      - minio
+#      - elastic
+
+    networks:
+      - backend
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    volumes:
+      - ${SRV_DATA}/mongo:/data/db
+    networks:
+      - backend
+
+  minio:
+    image: minio/minio
+    command: server /data
+    environment:
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - ${SRV_DATA}/minio:/data
+    networks:
+      - backend
+
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.14.1
+    environment:
+      - xpack.security.enabled=false
+    volumes:
+      - ${SRV_DATA}/elastic:/usr/share/elasticsearch/data
+    networks:
+      - elastic
+    depends_on:
+      - kibana
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.14.1
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elastic:9200
+    volumes:
+      - ${SRV_DATA}/kibana:/usr/share/kibana/data
+
+    networks:
+      - elastic
+      - backend
+
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - backend
+    depends_on:
+      - backend
+#      - kibana
+      - minio
+
+networks:
+  backend:
+    driver: custom-driver-1
+  elastic:
+    driver: custom-driver-2
