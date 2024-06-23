@@ -1,0 +1,16 @@
+type QueryClinic {
+    clinicById(id: ID): Clinic
+}
+
+type Clinic {
+    id: ID
+
+    name: String
+    address: String
+    avatarUrl: String
+
+    parentClinic: Clinic
+}
+
+
+scalar Date

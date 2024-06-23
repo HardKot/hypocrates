@@ -1,0 +1,44 @@
+type StaffQuery {
+    staffById(id: ID): Staff
+    staffRoleById(id: ID): StaffRole
+}
+
+type StaffMutation {
+    createStaff(form: CreateStaffForm): Staff
+}
+
+input CreateStaffForm {
+    firstname: String
+    lastname: String
+    patronymic: String
+
+    birthday: Date
+    avatarUrl: String
+
+    email: String
+    phone: String
+}
+
+type StaffRole {
+    id: ID
+
+    name: String
+    rule: [String]
+}
+
+type Staff {
+    id: ID
+
+    firstname: String
+    lastname: String
+    patronymic: String
+
+    birthday: Date
+    avatarUrl: String
+
+    clinic: Clinic
+    email: String
+    phone: String
+
+    role: StaffRole
+}
