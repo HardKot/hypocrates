@@ -1,11 +1,15 @@
 package com.hypocrates.hypocrates.database.schema;
 
 
+import com.hypocrates.hypocrates.dto.StaffDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.relational.core.mapping.Table;
+
+import java.util.Date;
 
 @Data
 @Table("StaffSchema")
@@ -25,7 +29,7 @@ public class StaffSchema extends BaseSchema {
     private String patronymic;
 
     @Column(table = "AppUser", name = "birthday")
-    private String date;
+    private Date birthday;
 
     @Column(table = "AppUser", name = "avatar_url")
     private String avatarUrl;
@@ -34,13 +38,13 @@ public class StaffSchema extends BaseSchema {
     private String email;
 
     @Column(table = "UserContact", name = "emailIsActive")
-    private Boolean emailIsActive;
+    private boolean emailIsActive;
 
     @Column(table = "UserContact", name = "phone")
     private String phone;
 
     @Column(table = "UserContact", name = "phoneIsActive")
-    private Boolean phoneIsActive;
+    private boolean phoneIsActive;
 
     @Column(table = "UserSecurity", name = "password")
     private String password;

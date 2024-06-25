@@ -7,6 +7,7 @@ import java.util.Set;
 
 @Accessors(chain = true) @Setter
 public class ClinicBuilder {
+    private Long id;
     private String name;
     private String address;
     private String avatarUrl;
@@ -16,6 +17,6 @@ public class ClinicBuilder {
     private Set<Clinic> childClinics = Set.of();
 
     public Clinic createClinic() {
-        return new Clinic(name, address, avatarUrl, patients, staff, parentClinic, childClinics);
+        return new Clinic(id, name, address, avatarUrl, patients, staff, parentClinic, childClinics);
     }
 }

@@ -1,7 +1,7 @@
 package com.hypocrates.hypocrates.database.repository;
 
 import com.hypocrates.hypocrates.database.schema.StaffSchema;
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface StaffRepository extends ReactiveCrudRepository<StaffSchema, Long> {
+public interface StaffRepository extends CrudRepository<StaffSchema, Long> {
 }

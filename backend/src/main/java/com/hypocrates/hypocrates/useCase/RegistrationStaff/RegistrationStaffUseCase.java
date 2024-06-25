@@ -4,19 +4,19 @@ import com.hypocrates.hypocrates.domain.*;
 import com.hypocrates.hypocrates.useCase.StaffInteractError;
 import com.leakyabstractions.result.api.Result;
 import com.leakyabstractions.result.core.Results;
+import lombok.AllArgsConstructor;
 import lombok.Setter;
 
 
+@AllArgsConstructor
 public class RegistrationStaffUseCase {
-    @Setter
     private IStaffGateway staffGateway;
-
-    @Setter
+    private IUserGateway userGateway;
     private IClinicGateway clinicGateway;
 
     public Result<Staff, StaffInteractError> execute(ICreateStaffForm form) {
-        if (staffGateway.emailUsed(form.email())) return Results.failure(new StaffInteractError.EmailUsed());
-        if (staffGateway.phoneUsed(form.phone())) return Results.failure(new StaffInteractError.PhoneUsed());
+        if (userGateway.emailUsed(form.email())) return Results.failure(new StaffInteractError.EmailUsed());
+        if (userGateway.phoneUsed(form.phone())) return Results.failure(new StaffInteractError.PhoneUsed());
 
         Clinic clinic = createClinic(form);
         Staff staff = new StaffBuilder()

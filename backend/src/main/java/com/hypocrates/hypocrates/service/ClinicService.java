@@ -13,11 +13,11 @@ public class ClinicService {
     @Autowired
     private ClinicRepository clinicRepository;
 
-    public Mono<ClinicSchema> create(ClinicSchema clinicSchema) {
+    public ClinicSchema create(ClinicSchema clinicSchema) {
         return clinicRepository.save(clinicSchema);
     }
 
-    public Mono<ClinicSchema> getById(Long id) {
-        return clinicRepository.findById(id);
+    public ClinicSchema getById(Long id) {
+        return clinicRepository.findById(id).orElseGet(null);
     }
 }
