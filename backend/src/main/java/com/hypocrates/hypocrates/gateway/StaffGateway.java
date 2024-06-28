@@ -1,8 +1,7 @@
 package com.hypocrates.hypocrates.gateway;
 
-import com.hypocrates.hypocrates.domain.IStaffGateway;
-import com.hypocrates.hypocrates.domain.Staff;
-import com.hypocrates.hypocrates.dto.StaffDTO;
+import com.hypocrates.hypocrates.domain.staff.IStaffGateway;
+import com.hypocrates.hypocrates.domain.staff.Staff;
 import com.hypocrates.hypocrates.service.EmailSender;
 import com.hypocrates.hypocrates.service.StaffService;
 import lombok.AllArgsConstructor;

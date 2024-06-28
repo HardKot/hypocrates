@@ -1,4 +1,4 @@
-package com.hypocrates.hypocrates.domain;
+package com.hypocrates.hypocrates.domain.clinic;
 
 public interface IClinicGateway {
 

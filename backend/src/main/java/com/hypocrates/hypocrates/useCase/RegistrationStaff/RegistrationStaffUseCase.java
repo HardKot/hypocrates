@@ -1,11 +1,17 @@
 package com.hypocrates.hypocrates.useCase.RegistrationStaff;
 
-import com.hypocrates.hypocrates.domain.*;
+import com.hypocrates.hypocrates.domain.staff.IStaffGateway;
+import com.hypocrates.hypocrates.domain.appUser.IUserGateway;
+import com.hypocrates.hypocrates.domain.clinic.Clinic;
+import com.hypocrates.hypocrates.domain.clinic.ClinicBuilder;
+import com.hypocrates.hypocrates.domain.clinic.IClinicGateway;
+import com.hypocrates.hypocrates.domain.clinic.PersonalManager;
+import com.hypocrates.hypocrates.domain.staff.Staff;
+import com.hypocrates.hypocrates.domain.staff.StaffRole;
 import com.hypocrates.hypocrates.useCase.StaffInteractError;
 import com.leakyabstractions.result.api.Result;
 import com.leakyabstractions.result.core.Results;
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 
 
 @AllArgsConstructor
@@ -13,41 +19,32 @@ public class RegistrationStaffUseCase {
     private IStaffGateway staffGateway;
     private IUserGateway userGateway;
     private IClinicGateway clinicGateway;
+    private PersonalManager personalManager;
 
     public Result<Staff, StaffInteractError> execute(ICreateStaffForm form) {
         if (userGateway.emailUsed(form.email())) return Results.failure(new StaffInteractError.EmailUsed());
         if (userGateway.phoneUsed(form.phone())) return Results.failure(new StaffInteractError.PhoneUsed());
 
-        Clinic clinic = createClinic(form);
-        Staff staff = new StaffBuilder()
-                .setFirstname(form.firstname())
-                .setLastname(form.lastname())
-                .setPatronymic(form.patronymic())
-
-                .setBirthday(form.birthday())
-                .setAvatarUrl(form.avatarUrl())
-
-                .setEmail(form.email())
-                .setPhone(form.phone())
-
-                .createStaff();
+        var clinic = createClinic(form);
+        var ownerRole = personalManager(clinic).ownerRole();
+        var staff = staffGateway.mapToFrom(form);
 
         if (!staff.updatePassword(form.password(), form.repeatPassword()))
             return Results.failure(new StaffInteractError.PasswordNotMatch());
 
         if (clinic != null) {
             clinic = clinicGateway.createClinic(clinic);
-            staff = new PersonalManager(clinic).addNewStaff(staff, StaffRole.Owner());
+            staff = personalManager(clinic).addNewStaff(staff, ownerRole);
         }
 
         staffGateway.createStaff(staff);
 
         var messageBuilder = new RegistrationMessageBuilder()
-                .setUsername(staff.getFullName())
-                .setToken(staffGateway.generateToken(staff.getId()));
+                .username(staff.getFullName())
+                .token(staffGateway.generateToken(staff.getId()));
 
         if (clinic != null) {
-            messageBuilder.setClinicName(clinic.getName());
+            messageBuilder.clinicName(clinic.getName());
         }
 
         staffGateway.sendEmail(staff.getEmail(), messageBuilder.build());
@@ -64,5 +61,12 @@ public class RegistrationStaffUseCase {
                 .setAddress(form.clinicAddress())
                 .setAvatarUrl(form.clinicAvatarUrl())
                 .createClinic();
+    }
+
+
+
+    private PersonalManager personalManager(Clinic clinic) {
+        if (this.personalManager != null) return this.personalManager;
+        return new PersonalManager(clinic, staffGateway);
     }
 }

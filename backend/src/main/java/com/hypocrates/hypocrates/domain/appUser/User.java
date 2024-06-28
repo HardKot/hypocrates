@@ -1,27 +1,28 @@
-package com.hypocrates.hypocrates.domain;
+package com.hypocrates.hypocrates.domain.appUser;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 
 @Getter
-@AllArgsConstructor
-public abstract class User {
-    private Long id;
-    private String firstname;
-    private String lastname;
-    private String patronymic;
-    private Date birthday;
-    private String avatarUrl;
+@SuperBuilder
+public class User {
+    protected String firstname;
+    protected String lastname;
+    protected String patronymic;
+    protected Date birthday;
+    protected String avatarUrl;
 
-    private String email;
-    private String phone;
+    protected String email;
+    protected String phone;
 
-    private Boolean emailIsActive;
-    private Boolean phoneIsActive;
+    protected Boolean emailIsActive;
+    protected Boolean phoneIsActive;
 
-    private String password;
+    protected String password;
 
     public Boolean getIsActive() {
         return emailIsActive;

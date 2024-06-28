@@ -1,5 +1,7 @@
-package com.hypocrates.hypocrates.domain;
+package com.hypocrates.hypocrates.domain.clinic;
 
+import com.hypocrates.hypocrates.domain.patient.Patient;
+import com.hypocrates.hypocrates.domain.staff.Staff;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 

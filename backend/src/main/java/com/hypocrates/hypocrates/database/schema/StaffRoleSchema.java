@@ -1,7 +1,7 @@
 package com.hypocrates.hypocrates.database.schema;
 
 
-import com.hypocrates.hypocrates.domain.AppRule;
+import com.hypocrates.hypocrates.domain.staff.AppRule;
 import com.hypocrates.hypocrates.dto.StaffRoleDTO;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.EnumType;
