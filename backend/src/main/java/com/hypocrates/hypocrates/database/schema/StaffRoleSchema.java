@@ -6,12 +6,10 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Set;
 
 @Data
-@Table("StaffRole")
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor

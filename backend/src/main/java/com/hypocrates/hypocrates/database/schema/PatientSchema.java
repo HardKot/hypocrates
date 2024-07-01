@@ -3,7 +3,6 @@ package com.hypocrates.hypocrates.database.schema;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @Table

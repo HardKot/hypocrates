@@ -5,13 +5,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Date;
 
 @Data
 @Entity
-@Table("StaffSchema")
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @SecondaryTable(name = "AppUser", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
