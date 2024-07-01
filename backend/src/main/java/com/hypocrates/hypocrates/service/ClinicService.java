@@ -2,22 +2,21 @@ package com.hypocrates.hypocrates.service;
 
 import com.hypocrates.hypocrates.database.repository.ClinicRepository;
 import com.hypocrates.hypocrates.database.schema.ClinicSchema;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @Service
-@Setter
+@RequiredArgsConstructor
 public class ClinicService {
-    @Autowired
     private ClinicRepository clinicRepository;
 
     public ClinicSchema create(ClinicSchema clinicSchema) {
         return clinicRepository.save(clinicSchema);
     }
 
-    public ClinicSchema getById(Long id) {
+    public ClinicSchema getById(UUID id) {
         return clinicRepository.findById(id).orElseGet(null);
     }
 }

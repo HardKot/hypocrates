@@ -1,25 +1,27 @@
 package com.hypocrates.hypocrates.database.schema;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @MappedSuperclass
 public abstract class BaseSchema {
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    protected UUID id;
 
     @LastModifiedDate
-    private Date updateAt;
+    protected Date updateAt;
 
     @CreatedDate
-    private Date createAt;
+    protected Date createAt;
 }

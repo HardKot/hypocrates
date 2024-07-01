@@ -8,6 +8,8 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
+import java.util.UUID;
+
 @Controller
 @AllArgsConstructor
 public class ClinicController {
@@ -15,7 +17,7 @@ public class ClinicController {
 
 
     @QueryMapping
-    public ClinicSchema clinic(@Argument Long id) {
+    public ClinicSchema clinic(@Argument UUID id) {
         return clinicService.getById(id);
     }
 

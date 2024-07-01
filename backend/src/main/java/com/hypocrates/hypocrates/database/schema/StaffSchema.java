@@ -1,9 +1,7 @@
 package com.hypocrates.hypocrates.database.schema;
 
 
-import com.hypocrates.hypocrates.dto.StaffDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -12,6 +10,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.util.Date;
 
 @Data
+@Entity
 @Table("StaffSchema")
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)

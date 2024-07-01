@@ -1,8 +1,10 @@
 package com.hypocrates.hypocrates.database.repository;
 
 import com.hypocrates.hypocrates.database.schema.ClinicSchema;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClinicRepository extends CrudRepository<ClinicSchema, Long> {
+
+import java.util.UUID;
+
+public interface ClinicRepository extends JpaRepository<ClinicSchema, UUID> {
 }

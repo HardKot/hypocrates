@@ -1,7 +1,10 @@
 package com.hypocrates.hypocrates.database.repository;
 
 import com.hypocrates.hypocrates.database.schema.StaffSchema;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface StaffRepository extends CrudRepository<StaffSchema, Long> {
+
+import java.util.UUID;
+
+public interface StaffRepository extends JpaRepository<StaffSchema, UUID> {
 }

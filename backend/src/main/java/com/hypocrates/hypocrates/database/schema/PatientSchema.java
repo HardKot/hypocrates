@@ -7,6 +7,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @Table
+@Entity
 @EqualsAndHashCode(callSuper = true)
 @SecondaryTable(name = "AppUser", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
 @SecondaryTable(name = "UserEmail", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))

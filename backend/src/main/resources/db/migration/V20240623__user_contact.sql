@@ -15,6 +15,6 @@ CREATE TABLE IF NOT EXISTS UserSecurity (
     id SERIAL PRIMARY KEY,
     password VARCHAR(255),
     isBanned BOOLEAN default false
-)
+);
 
 ALTER TABLE AppUser ADD security_id INTEGER REFERENCES UserSecurity (id);
