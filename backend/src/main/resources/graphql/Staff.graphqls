@@ -1,12 +1,3 @@
-type StaffQuery {
-    staffById(id: ID): Staff
-    staffRoleById(id: ID): StaffRole
-}
-
-type StaffMutation {
-    createStaff(form: CreateStaffForm): Staff
-}
-
 input CreateStaffForm {
     firstname: String
     lastname: String

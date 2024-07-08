@@ -1,5 +1,6 @@
 package com.hypocrates.hypocrates.service;
 
+import com.hypocrates.hypocrates.context.ClinicContext;
 import com.hypocrates.hypocrates.database.repository.ClinicRepository;
 import com.hypocrates.hypocrates.database.schema.ClinicSchema;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,10 @@ public class ClinicService {
 
     public ClinicSchema getById(UUID id) {
         return clinicRepository.findById(id).orElseGet(null);
+    }
+
+
+    public ClinicSchema getCurrentClinic() {
+        return ClinicContext.get();
     }
 }

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
 @Setter
@@ -16,7 +17,7 @@ public class StaffController {
     private StaffService staffService;
 
     @MutationMapping
-    public StaffSchema staff(@Argument(name = "form")CreateStaffForm form) {
+    public StaffSchema createStaff(@Argument(name = "form")CreateStaffForm form) {
 //        return staffService.createStaff(form);
         return null;
     }

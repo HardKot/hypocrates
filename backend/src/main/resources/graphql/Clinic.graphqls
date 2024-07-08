@@ -1,7 +1,3 @@
-type QueryClinic {
-    clinicById(id: ID): Clinic
-}
-
 type Clinic {
     id: ID
 
@@ -13,4 +9,3 @@ type Clinic {
 }
 
 
-scalar Date

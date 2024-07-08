@@ -1,7 +1,3 @@
-type QueryPatient {
-    patientById(id: ID): Patient
-}
-
 type Patient {
     id: ID
 

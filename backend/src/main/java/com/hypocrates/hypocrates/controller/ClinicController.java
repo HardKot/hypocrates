@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
 import java.util.UUID;
@@ -15,9 +16,8 @@ import java.util.UUID;
 public class ClinicController {
     private ClinicService clinicService;
 
-
     @QueryMapping
-    public ClinicSchema clinic(@Argument UUID id) {
+    public ClinicSchema clinicById(@Argument UUID id) {
         return clinicService.getById(id);
     }
 

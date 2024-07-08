@@ -1,0 +1,19 @@
+schema {
+    query: Query,
+    mutation: Mutation
+}
+
+type Query {
+    clinicById(id: ID): Clinic
+    patientById(id: ID): Patient
+    staffById(id: ID): Staff
+    staffRoleById(id: ID): StaffRole
+}
+
+
+type Mutation {
+    createStaff(form: CreateStaffForm): Staff
+}
+
+
+scalar Date

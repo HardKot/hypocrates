@@ -7,7 +7,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface StaffMapper {
-    StaffMapper INSTANCE = Mappers.getMapper(StaffMapper.class);
 //
 //    @Mapping(target = "updateAt", ignore = true)
 //    @Mapping(target = "createAt", ignore = true)

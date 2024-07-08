@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: "hypocrates"
+  datasource:
+    url: "jdbc:pgsql://localhost:5432/mydatabase"
+    driverClassName: org.postgresql.Driver
+    username: "myuser"
+    password: "secret"
+
+  mail:
+    host: "localhost"
+    username: "myuser"
+    password: "admin"
+    port: 1025
+    properties:
+      mail.smtp.auth: true
+
+#  graphql:
+#    schema:
+#      locations: "classpath*:graphql/**/"
+#    graphiql:
+#      enabled: true
+
+jwt:
+  secret: "AZKn*S0c]?Sj<K~"

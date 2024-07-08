@@ -1,2 +1,2 @@
-schema: '**/*.graphql'
-documents: '**/*.graphql'
+schema: '**/*.graphqls'
+documents: '**/*.graphqls'
