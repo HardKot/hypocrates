@@ -1,4 +1,4 @@
-package com.hypocrates.hypocrates.domain.appUser;
+package com.hypocrates.hypocrates.core.domain.appUser;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,11 +1,9 @@
-package com.hypocrates.hypocrates.domain.staff;
+package com.hypocrates.hypocrates.core.domain.staff;
 
-import com.hypocrates.hypocrates.domain.appUser.User;
-import com.hypocrates.hypocrates.domain.clinic.Clinic;
+import com.hypocrates.hypocrates.core.domain.appUser.User;
+import com.hypocrates.hypocrates.core.domain.clinic.Clinic;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-
-import java.util.Date;
 
 @Getter
 @SuperBuilder

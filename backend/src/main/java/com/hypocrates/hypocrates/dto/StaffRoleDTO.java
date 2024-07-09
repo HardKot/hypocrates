@@ -1,6 +1,6 @@
 package com.hypocrates.hypocrates.dto;
 
-import com.hypocrates.hypocrates.domain.staff.AppRule;
+import com.hypocrates.hypocrates.core.domain.staff.AppRule;
 import lombok.Builder;
 import lombok.Data;
 

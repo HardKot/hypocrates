@@ -9,3 +9,13 @@ type Clinic {
 }
 
 
+input RegistrationClinicForm {
+    firstname: String!
+    lastname: String!
+    patronymic: String
+
+    email: String!
+
+    name: String!
+    address: String
+}

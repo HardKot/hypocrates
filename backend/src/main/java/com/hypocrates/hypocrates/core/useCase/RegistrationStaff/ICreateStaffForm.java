@@ -1,4 +1,4 @@
-package com.hypocrates.hypocrates.useCase.RegistrationStaff;
+package com.hypocrates.hypocrates.core.useCase.RegistrationStaff;
 
 import java.util.Date;
 

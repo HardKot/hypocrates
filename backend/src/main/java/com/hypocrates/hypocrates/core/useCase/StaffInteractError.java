@@ -1,4 +1,4 @@
-package com.hypocrates.hypocrates.useCase;
+package com.hypocrates.hypocrates.core.useCase;
 
 public sealed class StaffInteractError {
     public static final class EmailUsed extends StaffInteractError {}

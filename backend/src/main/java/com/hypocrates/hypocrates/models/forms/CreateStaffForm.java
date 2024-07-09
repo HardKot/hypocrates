@@ -1,6 +1,6 @@
 package com.hypocrates.hypocrates.models.forms;
 
-import com.hypocrates.hypocrates.useCase.RegistrationStaff.ICreateStaffForm;
+import com.hypocrates.hypocrates.core.useCase.RegistrationStaff.ICreateStaffForm;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Past;

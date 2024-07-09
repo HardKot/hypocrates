@@ -1,9 +1,9 @@
-package com.hypocrates.hypocrates.domain.clinic;
+package com.hypocrates.hypocrates.core.domain.clinic;
 
-import com.hypocrates.hypocrates.domain.appUser.User;
-import com.hypocrates.hypocrates.domain.staff.IStaffGateway;
-import com.hypocrates.hypocrates.domain.staff.Staff;
-import com.hypocrates.hypocrates.domain.staff.StaffRole;
+import com.hypocrates.hypocrates.core.domain.appUser.User;
+import com.hypocrates.hypocrates.core.domain.staff.Staff;
+import com.hypocrates.hypocrates.core.domain.staff.IStaffGateway;
+import com.hypocrates.hypocrates.core.domain.staff.StaffRole;
 import lombok.Setter;
 
 @Setter

@@ -1,5 +1,8 @@
 package com.hypocrates.hypocrates.service.mapper;
 
+import com.hypocrates.hypocrates.core.domain.clinic.Clinic;
+import com.hypocrates.hypocrates.core.domain.staff.Staff;
+import com.hypocrates.hypocrates.core.useCase.RegistrationClinicUseCase;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.factory.Mappers;
@@ -28,4 +31,5 @@ public interface StaffMapper {
 //    StaffDTO domainToDto(Staff staff);
 //
 //    Staff createForm(ICreateStaffForm form);
+    Staff createClinicFormToStaff(RegistrationClinicUseCase.Form form);
 }

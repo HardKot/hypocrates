@@ -3,15 +3,15 @@ package com.hypocrates.hypocrates.gateway;
 import com.hypocrates.hypocrates.database.schema.ClinicSchema;
 import com.hypocrates.hypocrates.database.schema.StaffRoleSchema;
 import com.hypocrates.hypocrates.database.schema.StaffSchema;
-import com.hypocrates.hypocrates.domain.clinic.Clinic;
-import com.hypocrates.hypocrates.domain.staff.IStaffGateway;
-import com.hypocrates.hypocrates.domain.staff.Staff;
-import com.hypocrates.hypocrates.domain.staff.StaffRole;
+import com.hypocrates.hypocrates.core.domain.clinic.Clinic;
+import com.hypocrates.hypocrates.core.domain.staff.IStaffGateway;
+import com.hypocrates.hypocrates.core.domain.staff.Staff;
+import com.hypocrates.hypocrates.core.domain.staff.StaffRole;
 import com.hypocrates.hypocrates.service.EmailSender;
 import com.hypocrates.hypocrates.service.StaffRoleService;
 import com.hypocrates.hypocrates.service.StaffService;
 import com.hypocrates.hypocrates.service.TokenService;
-import com.hypocrates.hypocrates.useCase.RegistrationStaff.ICreateStaffForm;
+import com.hypocrates.hypocrates.core.useCase.RegistrationStaff.ICreateStaffForm;
 
 
 import lombok.RequiredArgsConstructor;

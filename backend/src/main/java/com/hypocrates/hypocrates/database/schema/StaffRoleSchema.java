@@ -1,7 +1,7 @@
 package com.hypocrates.hypocrates.database.schema;
 
 
-import com.hypocrates.hypocrates.domain.staff.AppRule;
+import com.hypocrates.hypocrates.core.domain.staff.AppRule;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

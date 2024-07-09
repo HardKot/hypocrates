@@ -1,6 +1,6 @@
-package com.hypocrates.hypocrates.domain.staff;
+package com.hypocrates.hypocrates.core.domain.staff;
 
-import com.hypocrates.hypocrates.domain.clinic.Clinic;
+import com.hypocrates.hypocrates.core.domain.clinic.Clinic;
 import lombok.Builder;
 import lombok.Getter;
 
