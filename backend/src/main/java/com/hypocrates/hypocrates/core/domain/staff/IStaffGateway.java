@@ -4,20 +4,23 @@ import com.hypocrates.hypocrates.core.domain.clinic.Clinic;
 import com.hypocrates.hypocrates.core.useCase.RegistrationClinicUseCase;
 import com.hypocrates.hypocrates.core.useCase.RegistrationStaff.ICreateStaffForm;
 
+import java.util.UUID;
+
 public interface IStaffGateway {
     void sendEmail(String email, String message);
 
     Staff createStaff(Staff staff);
 
-    String generateToken(Long userId);
+    String generateToken(UUID userId);
 
-    Staff createdFormToEntity(ICreateStaffForm form);
 
-    StaffRole getStaffRoleByName(String name, Clinic clinic);
+    StaffRole getStaffRoleByName(String name);
 
     StaffRole createStaffRole(StaffRole role);
 
     Staff mapToFrom(ICreateStaffForm form);
 
-    Staff mapToCreateForm(RegistrationClinicUseCase.Form form);
+    Staff saveStaff(Staff staff);
+
+
 }

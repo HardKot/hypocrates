@@ -18,7 +18,4 @@ public class ClinicBuilder {
     private Clinic parentClinic;
     private Set<Clinic> childClinics = Set.of();
 
-    public Clinic createClinic() {
-        return new Clinic(id, name, address, avatarUrl, patients, staff, parentClinic, childClinics);
-    }
 }

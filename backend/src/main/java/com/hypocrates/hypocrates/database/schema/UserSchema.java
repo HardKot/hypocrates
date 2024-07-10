@@ -1,6 +1,5 @@
-package com.hypocrates.hypocrates.database.adminSchema;
+package com.hypocrates.hypocrates.database.schema;
 
-import com.hypocrates.hypocrates.database.schema.BaseSchema;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

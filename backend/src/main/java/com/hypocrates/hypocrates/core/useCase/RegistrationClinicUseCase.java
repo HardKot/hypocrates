@@ -1,6 +1,7 @@
 package com.hypocrates.hypocrates.core.useCase;
 
 import com.hypocrates.hypocrates.core.domain.appUser.IUserGateway;
+import com.hypocrates.hypocrates.core.domain.appUser.User;
 import com.hypocrates.hypocrates.core.domain.clinic.Clinic;
 import com.hypocrates.hypocrates.core.domain.clinic.IClinicGateway;
 import com.hypocrates.hypocrates.core.domain.clinic.PersonalManager;
@@ -15,35 +16,40 @@ public class RegistrationClinicUseCase {
     private IStaffGateway staffGateway;
     private IUserGateway userGateway;
 
-    public Result<Clinic, ClinicInteractError> registerClinic(Form form) {
-        if (clinicGateway.byName(form.name()) == null) return Results.failure(new ClinicInteractError.NameNoUniqueException());
+    public Result<Clinic, ClinicInteractError> registerClinic() {
+        var clinic = clinicGateway.getClinic();
+        if (clinic != null) return Results.success(clinic);
 
-        var clinic = clinicGateway.mapToCreateForm(form);
+        clinic = Clinic.builder()
+                .codeID(clinicGateway.getRandomString())
+                .build();
 
-        var user = userGateway.mapToCreateForm(form);
-        if (userGateway.emailUsed(user.getEmail())) {
-            user = userGateway.getByEmail(user.getEmail());
-        }
+        var ownerEmail = clinicGateway.getEmailOwner();
+        if (ownerEmail == null) return Results.failure(new ClinicInteractError.OwnerEmailNotFound());
+
+        var owner = User.builder()
+                .email(ownerEmail)
+                .build();
 
         var personalManager = new PersonalManager(clinic, staffGateway);
+        var staff = personalManager.addNewStaff(owner, personalManager.ownerRole());
 
-        var staff = personalManager.addNewStaff(user, personalManager.ownerRole());
+        clinic = clinicGateway.saveClinic(clinic);
+        staffGateway.saveStaff(staff);
+        userGateway.saveUser(owner);
 
-        clinicGateway.createClinic(clinic);
-        staffGateway.createStaff(staff);
+
+        var token = staffGateway.generateToken(owner.getId());
+
+        staffGateway.sendEmail(ownerEmail, activateMessage(token));
 
         return Results.success(clinic);
     }
 
 
-    public static interface Form {
-        String firstname();
-        String lastname();
-        String patronymic();
-
-        String email();
-
-        String name();
-        String address();
+    private String activateMessage(String token) {
+        return "<h4>Добро пожаловать в <b>Hypocrates</b>!</h4>\n" +
+                "Для дальнейшей работы необходимо подтвердить email, перейдя по ссылке ниже:\n" +
+                clinicGateway.getHostName() + "/activate/" + token;
     }
 }

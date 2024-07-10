@@ -10,7 +10,6 @@ import lombok.Getter;
 public class StaffRole {
     private Long id;
     private String name;
-    private Clinic clinic;
 
     private AppRule[] rules;
 

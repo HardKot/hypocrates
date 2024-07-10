@@ -6,10 +6,12 @@ import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Getter
 @SuperBuilder
 public class User {
+    protected UUID id;
     protected String firstname;
     protected String lastname;
     protected String patronymic;

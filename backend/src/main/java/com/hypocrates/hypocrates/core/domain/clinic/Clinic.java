@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @Builder
 public class Clinic {
-    private Long id;
+    private String codeID;
     private String name;
     private String address;
     private String avatarUrl;

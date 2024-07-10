@@ -1,7 +1,6 @@
 package com.hypocrates.hypocrates.service;
 
 import com.hypocrates.hypocrates.database.repository.StaffRoleRepository;
-import com.hypocrates.hypocrates.database.adminSchema.ClinicSchema;
 import com.hypocrates.hypocrates.database.schema.StaffRoleSchema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class StaffRoleService {
     private StaffRoleRepository staffRoleRepository;
 
-    public StaffRoleSchema getStaffRoleByName(String name, ClinicSchema clinicSchema) {
+    public StaffRoleSchema getStaffRoleByName(String name) {
         return staffRoleRepository.findByName(name).orElse(null);
     }
 

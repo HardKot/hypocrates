@@ -8,9 +8,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 public class Staff extends User {
-    private Long id;
-
-    private Clinic clinic;
 
     private StaffRole role;
 }

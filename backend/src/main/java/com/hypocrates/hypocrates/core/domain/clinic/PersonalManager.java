@@ -28,7 +28,6 @@ public class PersonalManager {
                 .password(user.getPassword())
                 .phone(user.getPhone())
 
-                .clinic(clinic)
                 .role(role)
 
                 .build();
@@ -38,10 +37,10 @@ public class PersonalManager {
     }
 
     public StaffRole ownerRole() {
-        var staffRole = staffGateway.getStaffRoleByName("Owner", clinic);
+        var staffRole = staffGateway.getStaffRoleByName("Owner");
 
         if (staffRole == null) {
-            staffRole = staffGateway.createStaffRole(StaffRole.OwnerBuilder().clinic(clinic).build());
+            staffRole = staffGateway.createStaffRole(StaffRole.OwnerBuilder().build());
         }
 
         return staffRole;

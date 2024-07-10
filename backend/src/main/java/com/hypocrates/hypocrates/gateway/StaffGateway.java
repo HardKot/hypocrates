@@ -1,7 +1,6 @@
 package com.hypocrates.hypocrates.gateway;
 
 import com.hypocrates.hypocrates.core.useCase.RegistrationClinicUseCase;
-import com.hypocrates.hypocrates.database.adminSchema.ClinicSchema;
 import com.hypocrates.hypocrates.database.schema.StaffRoleSchema;
 import com.hypocrates.hypocrates.database.schema.StaffSchema;
 import com.hypocrates.hypocrates.core.domain.clinic.Clinic;
@@ -18,6 +17,8 @@ import com.hypocrates.hypocrates.core.useCase.RegistrationStaff.ICreateStaffForm
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -42,19 +43,21 @@ public class StaffGateway implements IStaffGateway {
     }
 
     @Override
+    public String generateToken(UUID userId) {
+        return "adasdad";
+    }
+
     public String generateToken(Long userId) {
         return tokenService.generateToken(userId);
     }
 
-    @Override
     public Staff createdFormToEntity(ICreateStaffForm form) {
         return conversionService.convert(form, Staff.class);
     }
 
     @Override
-    public StaffRole getStaffRoleByName(String name, Clinic clinic) {
-        var clinicSchema = conversionService.convert(clinic, ClinicSchema.class);
-        var roleSchema = staffRoleService.getStaffRoleByName(name, clinicSchema);
+    public StaffRole getStaffRoleByName(String name) {
+        var roleSchema = staffRoleService.getStaffRoleByName(name);
         return conversionService.convert(roleSchema, StaffRole.class);
     }
 
@@ -71,7 +74,8 @@ public class StaffGateway implements IStaffGateway {
     }
 
     @Override
-    public Staff mapToCreateForm(RegistrationClinicUseCase.Form form) {
+    public Staff saveStaff(Staff staff) {
         return null;
     }
+
 }

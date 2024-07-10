@@ -9,5 +9,4 @@ public class HypocratesApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HypocratesApplication.class, args);
 	}
-
 }

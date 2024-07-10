@@ -1,12 +1,16 @@
 package com.hypocrates.hypocrates.core.domain.clinic;
 
-import com.hypocrates.hypocrates.core.useCase.RegistrationClinicUseCase;
 
 public interface IClinicGateway {
+    Clinic getClinic();
 
-    Clinic createClinic(Clinic clinic);
+    void sendEmail(String email, String message);
 
-    Clinic byName(String clinicName);
+    String getEmailOwner();
 
-    Clinic mapToCreateForm(RegistrationClinicUseCase.Form form);
+    String getRandomString();
+
+    Clinic saveClinic(Clinic clinic);
+
+    String getHostName();
 }

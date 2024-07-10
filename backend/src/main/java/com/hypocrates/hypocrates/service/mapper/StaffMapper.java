@@ -31,5 +31,4 @@ public interface StaffMapper {
 //    StaffDTO domainToDto(Staff staff);
 //
 //    Staff createForm(ICreateStaffForm form);
-    Staff createClinicFormToStaff(RegistrationClinicUseCase.Form form);
 }
