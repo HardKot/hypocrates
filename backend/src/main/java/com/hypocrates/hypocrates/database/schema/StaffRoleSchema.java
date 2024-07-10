@@ -2,6 +2,7 @@ package com.hypocrates.hypocrates.database.schema;
 
 
 import com.hypocrates.hypocrates.core.domain.staff.AppRule;
+import com.hypocrates.hypocrates.database.adminSchema.ClinicSchema;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,7 +21,4 @@ public class StaffRoleSchema extends BaseSchema {
     @Enumerated(EnumType.STRING)
     private Set<AppRule> rules;
 
-    @ManyToOne
-    @JoinColumn(name = "clinic_id")
-    private ClinicSchema clinic;
 }

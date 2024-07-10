@@ -1,5 +1,6 @@
-package com.hypocrates.hypocrates.database.schema;
+package com.hypocrates.hypocrates.database.adminSchema;
 
+import com.hypocrates.hypocrates.database.schema.BaseSchema;
 import jakarta.persistence.Entity;
 import lombok.*;
 
@@ -13,4 +14,5 @@ public class ClinicSchema extends BaseSchema {
     private String name;
     private String address;
     private String avatarUrl;
+    private String code;
 }

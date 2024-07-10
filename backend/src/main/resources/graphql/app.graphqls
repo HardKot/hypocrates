@@ -13,7 +13,7 @@ type Query {
 
 type Mutation {
     createStaff(form: CreateStaffForm): Staff
-    createMedical(form: CreateMedicalForm): Clinic
+#    createMedical(form: CreateMedicalForm): Clinic
 }
 
 

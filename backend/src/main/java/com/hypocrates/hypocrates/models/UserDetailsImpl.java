@@ -1,10 +1,12 @@
 package com.hypocrates.hypocrates.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hypocrates.hypocrates.database.schema.PatientSchema;
 import com.hypocrates.hypocrates.database.schema.StaffSchema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -23,10 +25,23 @@ public class UserDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     public static UserDetailsImpl buildStaff(StaffSchema staff) {
+
         return new UserDetailsImpl(
                 staff.getId(),
                 staff.getEmail(),
                 staff.getPassword(),
+                staff.getRules()
+                        .stream()
+                        .map(appRule -> new SimpleGrantedAuthority(appRule.name()))
+                        .toList()
+        );
+    }
+
+    public static UserDetailsImpl buildPatient(PatientSchema patient) {
+        return new UserDetailsImpl(
+                patient.getId(),
+                patient.getEmail(),
+                patient.getPassword(),
                 List.of()
         );
     }

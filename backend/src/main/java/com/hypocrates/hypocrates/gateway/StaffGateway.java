@@ -1,6 +1,7 @@
 package com.hypocrates.hypocrates.gateway;
 
-import com.hypocrates.hypocrates.database.schema.ClinicSchema;
+import com.hypocrates.hypocrates.core.useCase.RegistrationClinicUseCase;
+import com.hypocrates.hypocrates.database.adminSchema.ClinicSchema;
 import com.hypocrates.hypocrates.database.schema.StaffRoleSchema;
 import com.hypocrates.hypocrates.database.schema.StaffSchema;
 import com.hypocrates.hypocrates.core.domain.clinic.Clinic;
@@ -67,5 +68,10 @@ public class StaffGateway implements IStaffGateway {
     @Override
     public Staff mapToFrom(ICreateStaffForm form) {
         return conversionService.convert(form, Staff.class);
+    }
+
+    @Override
+    public Staff mapToCreateForm(RegistrationClinicUseCase.Form form) {
+        return null;
     }
 }

@@ -1,12 +1,16 @@
 package com.hypocrates.hypocrates.database.schema;
 
 
+import com.hypocrates.hypocrates.core.domain.staff.AppRule;
+import com.hypocrates.hypocrates.database.adminSchema.ClinicSchema;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.apache.tomcat.util.digester.Rule;
 
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @Entity
@@ -47,10 +51,11 @@ public class StaffSchema extends BaseSchema {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "clinic_id")
-    private ClinicSchema clinic;
-
-    @ManyToOne
     @JoinColumn(name = "role_id")
     private StaffRoleSchema role;
+
+    public Set<AppRule> getRules() {
+        return role.getRules();
+    }
+
 }

@@ -17,6 +17,6 @@ public class StaffService {
     }
 
     public StaffSchema findByEmail(String email) {
-        return staffRepository.findByEmailAndClinic(email, ClinicContext.get()).orElse(null);
+        return staffRepository.findByEmail(email).orElse(null);
     }
 }

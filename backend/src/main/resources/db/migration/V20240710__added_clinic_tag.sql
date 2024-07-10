@@ -1,0 +1,2 @@
+ALTER TABLE ClinicSchema ADD code VARCHAR(255);
+

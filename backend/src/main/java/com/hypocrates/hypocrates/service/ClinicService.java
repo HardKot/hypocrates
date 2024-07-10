@@ -2,7 +2,7 @@ package com.hypocrates.hypocrates.service;
 
 import com.hypocrates.hypocrates.context.ClinicContext;
 import com.hypocrates.hypocrates.database.repository.ClinicRepository;
-import com.hypocrates.hypocrates.database.schema.ClinicSchema;
+import com.hypocrates.hypocrates.database.adminSchema.ClinicSchema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
