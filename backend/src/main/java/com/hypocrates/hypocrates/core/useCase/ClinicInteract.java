@@ -20,10 +20,6 @@ public class ClinicInteract {
         var clinic = clinicGateway.getClinic();
         if (clinic != null) return Results.success(clinic);
 
-        clinic = Clinic.builder()
-                .codeID(clinicGateway.getRandomString())
-                .build();
-
         var ownerEmail = clinicGateway.getEmailOwner();
         if (ownerEmail == null) return Results.failure(new ClinicInteractError.OwnerEmailNotFound());
 
@@ -41,15 +37,8 @@ public class ClinicInteract {
 
         var token = staffGateway.generateToken(owner.getId());
 
-        staffGateway.sendEmail(ownerEmail, activateMessage(token));
+        staffGateway.sendEmailRegistration(ownerEmail, token, staff);
 
         return Results.success(clinic);
-    }
-
-
-    private String activateMessage(String token) {
-        return "<h4>Добро пожаловать в <b>Hypocrates</b>!</h4>\n" +
-                "Для дальнейшей работы необходимо подтвердить email, перейдя по ссылке ниже:\n" +
-                clinicGateway.getHostName() + "/activate/" + token;
     }
 }

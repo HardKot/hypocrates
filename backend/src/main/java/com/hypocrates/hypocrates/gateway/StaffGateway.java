@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 @Component
@@ -28,8 +29,11 @@ public class StaffGateway implements IStaffGateway {
     private StaffRoleService staffRoleService;
 
     @Override
-    public void sendEmail(String email, String message) {
-        emailSender.sendEmail(email, message);
+    public void sendEmailRegistration(String email, String actionLink, Staff staff) {
+        var model = new HashMap<String, String>();
+        model.put("actionLink", actionLink);
+
+        emailSender.sendEmail(email, "Registration.tfl", model);
     }
 
     @Override

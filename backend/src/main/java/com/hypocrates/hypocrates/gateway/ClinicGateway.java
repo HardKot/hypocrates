@@ -24,7 +24,7 @@ public class ClinicGateway implements IClinicGateway {
 
     @Override
     public void sendEmail(String email, String message) {
-        emailSender.sendEmail(email, message);
+//        emailSender.sendEmail(email, message);
     }
 
     @Override

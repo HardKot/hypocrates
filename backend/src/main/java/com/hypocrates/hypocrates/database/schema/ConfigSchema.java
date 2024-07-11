@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-public class ClinicConfigSchema {
+public class ConfigSchema {
     @Id
     private Integer id;
 

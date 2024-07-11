@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS ClinicConfigSchema
+CREATE TABLE IF NOT EXISTS ConfigSchema
 (
     id        SERIAL PRIMARY KEY,
 
