@@ -1,7 +1,5 @@
 package com.hypocrates.hypocrates.core.domain.staff;
 
-import com.hypocrates.hypocrates.core.domain.clinic.Clinic;
-import com.hypocrates.hypocrates.core.useCase.RegistrationClinicUseCase;
 import com.hypocrates.hypocrates.core.useCase.RegistrationStaff.ICreateStaffForm;
 
 import java.util.UUID;

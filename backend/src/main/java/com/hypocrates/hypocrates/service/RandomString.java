@@ -1,10 +1,13 @@
 package com.hypocrates.hypocrates.service;
 
+import org.springframework.stereotype.Service;
+
 import java.security.SecureRandom;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
 
+@Service
 public class RandomString {
 
     public String nextString() {

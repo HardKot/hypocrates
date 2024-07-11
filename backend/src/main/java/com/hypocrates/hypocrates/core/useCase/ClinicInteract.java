@@ -11,7 +11,7 @@ import com.leakyabstractions.result.core.Results;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class RegistrationClinicUseCase {
+public class ClinicInteract {
     private IClinicGateway clinicGateway;
     private IStaffGateway staffGateway;
     private IUserGateway userGateway;

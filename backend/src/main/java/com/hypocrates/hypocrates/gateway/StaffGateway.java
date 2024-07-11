@@ -1,9 +1,7 @@
 package com.hypocrates.hypocrates.gateway;
 
-import com.hypocrates.hypocrates.core.useCase.RegistrationClinicUseCase;
 import com.hypocrates.hypocrates.database.schema.StaffRoleSchema;
 import com.hypocrates.hypocrates.database.schema.StaffSchema;
-import com.hypocrates.hypocrates.core.domain.clinic.Clinic;
 import com.hypocrates.hypocrates.core.domain.staff.IStaffGateway;
 import com.hypocrates.hypocrates.core.domain.staff.Staff;
 import com.hypocrates.hypocrates.core.domain.staff.StaffRole;
