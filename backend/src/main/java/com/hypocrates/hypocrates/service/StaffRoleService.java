@@ -2,11 +2,12 @@ package com.hypocrates.hypocrates.service;
 
 import com.hypocrates.hypocrates.database.repository.StaffRoleRepository;
 import com.hypocrates.hypocrates.database.schema.StaffRoleSchema;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class StaffRoleService {
     private StaffRoleRepository staffRoleRepository;
 

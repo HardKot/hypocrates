@@ -1,6 +1,5 @@
 package com.hypocrates.hypocrates.database.repository;
 
-import com.hypocrates.hypocrates.database.adminSchema.ClinicSchema;
 import com.hypocrates.hypocrates.database.schema.StaffRoleSchema;
 import org.springframework.data.jpa.repository.JpaRepository;
 

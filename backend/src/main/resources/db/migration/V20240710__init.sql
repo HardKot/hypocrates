@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS ConfigSchema
+CREATE TABLE IF NOT EXISTS Config_Schema
 (
     id        SERIAL PRIMARY KEY,
 
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS ConfigSchema
 );
 
 
-CREATE TABLE IF NOT EXISTS AppUser
+CREATE TABLE IF NOT EXISTS App_User
 (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS AppUser
 );
 
 
-CREATE TABLE IF NOT EXISTS StaffRoleSchema
+CREATE TABLE IF NOT EXISTS Staff_Role_Schema
 (
     id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
@@ -38,20 +38,20 @@ CREATE TABLE IF NOT EXISTS StaffRoleSchema
     create_at TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS StaffSchema
+CREATE TABLE IF NOT EXISTS Staff_Schema
 (
     id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id   UUID REFERENCES AppUser (id),
+    user_id   UUID REFERENCES App_User (id),
 
-    role_id   UUID REFERENCES StaffRoleSchema (id),
+    role_id   UUID REFERENCES Staff_Role_Schema (id),
     update_at TIMESTAMP,
     create_at TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS PatientSchema
+CREATE TABLE IF NOT EXISTS Patient_Schema
 (
     id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id   UUID REFERENCES AppUser (id),
+    user_id   UUID REFERENCES App_User (id),
 
     update_at TIMESTAMP,
     create_at TIMESTAMP

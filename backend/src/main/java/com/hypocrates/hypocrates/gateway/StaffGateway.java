@@ -12,6 +12,7 @@ import com.hypocrates.hypocrates.service.TokenService;
 import com.hypocrates.hypocrates.core.useCase.RegistrationStaff.ICreateStaffForm;
 
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class StaffGateway implements IStaffGateway {
     private StaffService staffService;
     private EmailSender emailSender;
@@ -66,7 +67,7 @@ public class StaffGateway implements IStaffGateway {
     @Override
     public StaffRole createStaffRole(StaffRole role) {
         var roleSchema = conversionService.convert(role, StaffRoleSchema.class);
-        roleSchema =staffRoleService.createStaffRole(roleSchema);
+        roleSchema = staffRoleService.createStaffRole(roleSchema);
         return conversionService.convert(roleSchema, StaffRole.class);
     }
 

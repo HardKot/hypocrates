@@ -1,6 +1,5 @@
 package com.hypocrates.hypocrates.service;
 
-import com.hypocrates.hypocrates.context.ClinicContext;
 import com.hypocrates.hypocrates.database.repository.StaffRepository;
 import com.hypocrates.hypocrates.database.schema.StaffSchema;
 import lombok.RequiredArgsConstructor;

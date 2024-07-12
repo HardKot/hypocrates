@@ -1,12 +1,10 @@
 package com.hypocrates.hypocrates.database.schema;
 
-import com.hypocrates.hypocrates.database.adminSchema.ClinicSchema;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@Table
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @SecondaryTable(name = "AppUser", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))

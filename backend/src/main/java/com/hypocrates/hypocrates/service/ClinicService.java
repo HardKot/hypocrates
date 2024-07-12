@@ -3,13 +3,13 @@ package com.hypocrates.hypocrates.service;
 import com.hypocrates.hypocrates.core.domain.clinic.Clinic;
 import com.hypocrates.hypocrates.database.repository.ConfigRepository;
 import com.hypocrates.hypocrates.database.schema.ConfigSchema;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ClinicService {
     private ConfigRepository configRepository;
     private Environment environment;

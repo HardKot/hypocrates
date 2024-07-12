@@ -18,19 +18,6 @@ public class EmailSender {
     private Configuration configuration = new Configuration(Configuration.VERSION_2_3_33);
 
 
-    public void sendEmail(String email, String messageText) {
-        var message = mailSender.createMimeMessage();
-
-        var helper = new MimeMessageHelper(message);
-        try {
-            helper.setTo(email);
-            helper.setText(messageText);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-        mailSender.send(message);
-    }
-
 
     public void sendEmail(String email, String templateName, Map<String, String> model) {
         var mimeMessage = mailSender.createMimeMessage();
