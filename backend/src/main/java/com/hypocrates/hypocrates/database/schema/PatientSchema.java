@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-@EqualsAndHashCode(callSuper = true)
 @SecondaryTable(name = "AppUser", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
 @SecondaryTable(name = "UserContact", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
 @SecondaryTable(name = "UserSecurity", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))

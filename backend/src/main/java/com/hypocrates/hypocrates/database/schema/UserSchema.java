@@ -8,7 +8,6 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "appuser")
 @EqualsAndHashCode(callSuper = true)
 @SecondaryTable(name = "UserContact", pkJoinColumns = @PrimaryKeyJoinColumn(name = "id"))
 @SecondaryTable(name = "UserSecurity", pkJoinColumns = @PrimaryKeyJoinColumn(name = "id"))

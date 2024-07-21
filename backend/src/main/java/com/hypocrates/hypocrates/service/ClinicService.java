@@ -21,8 +21,9 @@ public class ClinicService {
             return null;
         }
 
+
         var clinicBuilder = Clinic.builder()
-                .codeID(environment.getProperty(CLINIC_CODE))
+                .codeID(getClinicCode())
                 .name(getValueByKey(CLINIC_NAME))
                 .address(getValueByKey(CLINIC_ADDRESS))
                 .avatarUrl(getValueByKey(CLINIC_AVATAR_URL));
@@ -34,6 +35,14 @@ public class ClinicService {
         setValueByKey(CLINIC_NAME, clinic.getName());
         setValueByKey(CLINIC_ADDRESS, clinic.getAddress());
         setValueByKey(CLINIC_AVATAR_URL, clinic.getAvatarUrl());
+    }
+
+    public String getClinicCode() {
+        var clinicCode = environment.getProperty(CLINIC_CODE);
+        if (clinicCode == null) {
+            clinicCode = "000000";
+        }
+        return clinicCode;
     }
 
     private String getValueByKey(String key) {

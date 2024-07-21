@@ -13,40 +13,39 @@ import java.util.Set;
 
 @Data
 @Entity
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-@SecondaryTable(name = "AppUser", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
-@SecondaryTable(name = "UserContact", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
-@SecondaryTable(name = "UserSecurity", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
+@Table(name = "staff_schema")
+@SecondaryTable(name = "App_User", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
+@SecondaryTable(name = "User_Contact", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
+@SecondaryTable(name = "User_Security", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
 public class StaffSchema extends BaseSchema {
-    @Column(table = "AppUser", name = "firstname")
+    @Column(table = "app_user", name = "firstname")
     private String firstname;
 
-    @Column(table = "AppUser", name = "lastname")
+    @Column(table = "app_user", name = "lastname")
     private String lastname;
 
-    @Column(table = "AppUser", name = "patronymic")
+    @Column(table = "app_user", name = "patronymic")
     private String patronymic;
 
-    @Column(table = "AppUser", name = "birthday")
+    @Column(table = "app_user", name = "birthday")
     private Date birthday;
 
-    @Column(table = "AppUser", name = "avatar_url")
+    @Column(table = "app_user", name = "avatar_url")
     private String avatarUrl;
 
-    @Column(table = "UserContact", name = "email")
+    @Column(table = "user_contact", name = "email")
     private String email;
 
-    @Column(table = "UserContact", name = "emailIsActive")
+    @Column(table = "user_contact", name = "email_is_active")
     private boolean emailIsActive;
 
-    @Column(table = "UserContact", name = "phone")
+    @Column(table = "user_contact", name = "phone")
     private String phone;
 
-    @Column(table = "UserContact", name = "phoneIsActive")
+    @Column(table = "user_contact", name = "phone_is_active")
     private boolean phoneIsActive;
 
-    @Column(table = "UserSecurity", name = "password")
+    @Column(table = "user_security", name = "password")
     private String password;
 
     @ManyToOne

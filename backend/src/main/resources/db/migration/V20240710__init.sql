@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS App_User
     firstname   VARCHAR(255),
     lastname    VARCHAR(255),
     patronymic  VARCHAR(255),
+    avatar_url  VARCHAR(255),
     birthday    DATE,
 
     security_id INTEGER,
@@ -57,21 +58,21 @@ CREATE TABLE IF NOT EXISTS Patient_Schema
     create_at TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS UserContact
+CREATE TABLE IF NOT EXISTS User_Contact
 (
     id            SERIAL PRIMARY KEY,
     email         VARCHAR(255),
-    emailIsActive BOOLEAN DEFAULT FALSE,
+    email_is_active BOOLEAN DEFAULT FALSE,
     phone         VARCHAR(255),
-    phoneIsActive BOOLEAN DEFAULT FALSE
+    phone_is_active BOOLEAN DEFAULT FALSE
 
 );
 
 
-CREATE TABLE IF NOT EXISTS UserSecurity
+CREATE TABLE IF NOT EXISTS User_Security
 (
     id       SERIAL PRIMARY KEY,
     password VARCHAR(255),
-    isBanned BOOLEAN default false
+    is_banned BOOLEAN default false
 );
 

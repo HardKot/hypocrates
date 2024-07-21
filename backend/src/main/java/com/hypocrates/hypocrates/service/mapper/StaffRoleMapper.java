@@ -8,6 +8,6 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface StaffRoleMapper {
-    StaffRoleSchema toSchema(StaffRole staffRole);
-    StaffRole toEntity(StaffRoleSchema staffRoleSchema);
+//    StaffRoleSchema toSchema(StaffRole staffRole);
+//    StaffRole toEntity(StaffRoleSchema staffRoleSchema);
 }

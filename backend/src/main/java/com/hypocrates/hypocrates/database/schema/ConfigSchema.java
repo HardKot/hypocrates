@@ -1,5 +1,6 @@
 package com.hypocrates.hypocrates.database.schema;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -13,6 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
+@Table(name = "config_schema")
 public class ConfigSchema {
     @Id
     private Integer id;
@@ -21,9 +23,11 @@ public class ConfigSchema {
     private String value;
 
     @LastModifiedDate
+     @Column(name = "update_at")
     private Date updateAt;
 
     @CreatedDate
+     @Column(name = "create_at")
     private Date createAt;
 
 

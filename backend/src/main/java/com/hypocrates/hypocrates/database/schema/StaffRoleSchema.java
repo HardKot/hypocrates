@@ -11,7 +11,6 @@ import java.util.Set;
 
 @Data
 @Entity
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class StaffRoleSchema extends BaseSchema {
     private String name;
