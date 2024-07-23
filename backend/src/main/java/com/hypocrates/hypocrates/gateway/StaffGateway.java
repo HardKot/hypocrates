@@ -12,6 +12,8 @@ import com.hypocrates.hypocrates.service.TokenService;
 import com.hypocrates.hypocrates.core.useCase.RegistrationStaff.ICreateStaffForm;
 
 
+import com.hypocrates.hypocrates.service.mapper.StaffMapper;
+import com.hypocrates.hypocrates.service.mapper.StaffRoleMapper;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
@@ -25,9 +27,10 @@ import java.util.UUID;
 public class StaffGateway implements IStaffGateway {
     private StaffService staffService;
     private EmailSender emailSender;
-    private ConversionService conversionService;
     private TokenService tokenService;
     private StaffRoleService staffRoleService;
+    private StaffMapper staffMapper;
+    private StaffRoleMapper staffRoleMapper;
 
     @Override
     public void sendEmailRegistration(String email, String actionLink, Staff staff) {
@@ -39,9 +42,9 @@ public class StaffGateway implements IStaffGateway {
 
     @Override
     public Staff createStaff(Staff staff) {
-        var staffSchema = conversionService.convert(staff, StaffSchema.class);
+        var staffSchema = staffMapper.toSchema(staff, new StaffSchema());
         staffSchema = staffService.createStaff(staffSchema);
-        staff = conversionService.convert(staffSchema, Staff.class);
+        staff = staffMapper.toEntity(staffSchema);
         return staff;
     }
 
@@ -55,25 +58,26 @@ public class StaffGateway implements IStaffGateway {
     }
 
     public Staff createdFormToEntity(ICreateStaffForm form) {
-        return conversionService.convert(form, Staff.class);
+        return null; //conversionService.convert(form, Staff.class);
     }
 
     @Override
     public StaffRole getStaffRoleByName(String name) {
         var roleSchema = staffRoleService.getStaffRoleByName(name);
-        return conversionService.convert(roleSchema, StaffRole.class);
+//        return conversionService.convert(roleSchema, StaffRole.class);
+        return null;
     }
 
     @Override
     public StaffRole createStaffRole(StaffRole role) {
-        var roleSchema = conversionService.convert(role, StaffRoleSchema.class);
+        var roleSchema = staffRoleMapper.toSchema(role, new StaffRoleSchema());
         roleSchema = staffRoleService.createStaffRole(roleSchema);
-        return conversionService.convert(roleSchema, StaffRole.class);
+        return staffRoleMapper.toEntity(roleSchema);
     }
 
     @Override
     public Staff mapToFrom(ICreateStaffForm form) {
-        return conversionService.convert(form, Staff.class);
+        return null;  // conversionService.convert(form, Staff.class);
     }
 
     @Override

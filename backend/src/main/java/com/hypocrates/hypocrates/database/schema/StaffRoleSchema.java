@@ -11,6 +11,7 @@ import java.util.Set;
 
 @Data
 @Entity
+@Table(name = "staff_role_schema")
 @NoArgsConstructor
 public class StaffRoleSchema extends BaseSchema {
     private String name;

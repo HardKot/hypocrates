@@ -13,6 +13,6 @@ public class AppStartRunner implements ApplicationRunner {
 
     @Override
     public void run (ApplicationArguments args) throws Exception {
-//        clinicInteract.registerClinic();
+        clinicInteract.registerClinic();
     }
 }
