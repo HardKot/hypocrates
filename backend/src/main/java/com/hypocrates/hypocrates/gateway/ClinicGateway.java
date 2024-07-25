@@ -27,10 +27,6 @@ public class ClinicGateway implements IClinicGateway {
 //        emailSender.sendEmail(email, message);
     }
 
-    @Override
-    public String getEmailOwner() {
-        return environment.getProperty("OWNER_EMAIL");
-    }
 
     @Override
     public String getRandomString() {

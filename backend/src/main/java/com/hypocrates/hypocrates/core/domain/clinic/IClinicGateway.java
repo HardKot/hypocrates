@@ -6,8 +6,6 @@ public interface IClinicGateway {
 
     void sendEmail(String email, String message);
 
-    String getEmailOwner();
-
     String getRandomString();
 
     Clinic saveClinic(Clinic clinic);

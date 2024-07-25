@@ -22,13 +22,6 @@ public class StaffService {
         return staffRepository.findByEmail(email).orElse(null);
     }
 
-    public StaffSchema entityToSchema(Staff staff, StaffSchema staffSchema) {
-        return null;
-    }
-
-    public StaffSchema entityToSchema(Staff staff) {
-        return entityToSchema(staff, new StaffSchema());
-    }
 
     public StaffSchema getOwner() {
         return staffRepository.findAllByRole_Name("Owner").orElse(null);

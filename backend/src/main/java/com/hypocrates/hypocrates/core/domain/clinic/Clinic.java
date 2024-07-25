@@ -22,10 +22,14 @@ public class Clinic {
 
     private Clinic parentClinic;
     private Set<Clinic> childClinics;
+    private ClinicStatus status;
 
     public void addStaff(Staff staff) {
         if (staffs == null) staffs = new HashSet<>();
         staffs.add(staff);
+    }
 
+    public boolean isNew() {
+        return status == ClinicStatus.NO_ACTIVE;
     }
 }

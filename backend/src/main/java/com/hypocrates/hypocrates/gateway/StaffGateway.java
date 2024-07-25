@@ -50,10 +50,6 @@ public class StaffGateway implements IStaffGateway {
 
     @Override
     public String generateToken(UUID userId) {
-        return "adasdad";
-    }
-
-    public String generateToken(Long userId) {
         return tokenService.generateToken(userId);
     }
 
@@ -87,9 +83,19 @@ public class StaffGateway implements IStaffGateway {
         return staff;
     }
 
+    @Override
     public Staff getOwner() {
         var staffSchema = staffService.getOwner();
         if (staffSchema == null) { return null; }
         return staffMapper.toEntity(staffSchema);
     }
+
+    @Override
+    public Staff getByEmail(String email) {
+        var staffSchema = staffService.findByEmail(email);
+        if (staffSchema == null) { return null; }
+
+        return staffMapper.toEntity(staffSchema);
+    }
+
 }

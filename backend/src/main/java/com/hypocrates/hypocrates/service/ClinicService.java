@@ -2,6 +2,7 @@ package com.hypocrates.hypocrates.service;
 
 import com.hypocrates.hypocrates.context.ClinicContext;
 import com.hypocrates.hypocrates.core.domain.clinic.Clinic;
+import com.hypocrates.hypocrates.core.domain.clinic.ClinicStatus;
 import com.hypocrates.hypocrates.database.repository.ConfigRepository;
 import com.hypocrates.hypocrates.database.schema.ConfigSchema;
 import lombok.AllArgsConstructor;
@@ -22,10 +23,12 @@ public class ClinicService {
         if (clinicConfigs.isEmpty()) {
             return Clinic.builder()
                     .codeID(clinicContext.getClinicCode())
+                    .status(ClinicStatus.NO_ACTIVE)
                     .build();
         }
 
         var clinicBuilder = Clinic.builder()
+                .status(ClinicStatus.ACTIVE)
                 .codeID(clinicContext.getClinicCode())
                 .name(getValueByKey(CLINIC_NAME))
                 .address(getValueByKey(CLINIC_ADDRESS))

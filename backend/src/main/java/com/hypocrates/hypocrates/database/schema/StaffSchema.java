@@ -3,16 +3,15 @@ package com.hypocrates.hypocrates.database.schema;
 
 import com.hypocrates.hypocrates.core.domain.staff.AppRule;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.apache.tomcat.util.digester.Rule;
 
 import java.util.Date;
 import java.util.Set;
 
-@Data
 @Entity
+@Getter
+@Setter
 @Table(name = "staff_schema")
 public class StaffSchema extends BaseSchema {
     private String firstname;
