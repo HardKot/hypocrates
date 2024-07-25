@@ -11,7 +11,7 @@ __generated__
 !.vscode/launch.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
-
+srv/
 # Local History for Visual Studio Code
 .history/
 

@@ -1,0 +1,15 @@
+type Patient {
+    id: ID
+
+    firstname: String
+    lastname: String
+    patronymic: String
+
+    birthday: Date
+    avatarUrl: String
+
+    clinic: Clinic
+    email: String
+    phone: String
+}
+

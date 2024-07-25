@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: "hypocrates"
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    hikari:
+#      allow-pool-suspension: true
+    clinic:
+      url: "jdbc:postgresql://localhost:5432/clinic_000000"
+      driverClassName: org.postgresql.Driver
+      username: "myuser"
+      password: "secret"
+
+
+  mail:
+    host: "localhost"
+    username: "myuser"
+    password: "admin"
+    port: 1025
+    properties:
+      mail.smtp.auth: true
+
+#  graphql:
+#    schema:
+#      locations: "classpath*:graphql/**/"
+#    graphiql:
+#      enabled: true
+
+jwt:
+  secret: "AZKn*S0c]?Sj<K~"
