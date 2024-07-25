@@ -6,6 +6,7 @@ import com.hypocrates.hypocrates.core.domain.staff.Staff;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -23,6 +24,7 @@ public class Clinic {
     private Set<Clinic> childClinics;
 
     public void addStaff(Staff staff) {
+        if (staffs == null) staffs = new HashSet<>();
         staffs.add(staff);
 
     }

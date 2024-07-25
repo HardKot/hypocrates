@@ -16,7 +16,8 @@ import java.util.Set;
 public class StaffRoleSchema extends BaseSchema {
     private String name;
 
-    @ElementCollection(targetClass = AppRule.class)
+    @ElementCollection(targetClass = AppRule.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "Staff_Role_Schema_Rule", joinColumns = @JoinColumn(name = "staff_role_id"))
     @Enumerated(EnumType.STRING)
     private Set<AppRule> rules;
 

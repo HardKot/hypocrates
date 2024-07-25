@@ -19,5 +19,5 @@ public interface IStaffGateway {
 
     Staff saveStaff(Staff staff);
 
-
+    Staff getOwner();
 }

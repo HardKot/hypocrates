@@ -39,7 +39,8 @@ public class ClinicGateway implements IClinicGateway {
 
     @Override
     public Clinic saveClinic(Clinic clinic) {
-        return null;
+        clinicService.saveClinic(clinic);
+        return clinicService.getClinic();
     }
 
     @Override

@@ -37,7 +37,7 @@ public class StaffGateway implements IStaffGateway {
         var model = new HashMap<String, String>();
         model.put("actionLink", actionLink);
 
-        emailSender.sendEmail(email, "Registration.tfl", model);
+        emailSender.sendEmail(email, "Registration.ftl", model);
     }
 
     @Override
@@ -64,8 +64,7 @@ public class StaffGateway implements IStaffGateway {
     @Override
     public StaffRole getStaffRoleByName(String name) {
         var roleSchema = staffRoleService.getStaffRoleByName(name);
-//        return conversionService.convert(roleSchema, StaffRole.class);
-        return null;
+        return staffRoleMapper.toEntity(roleSchema);
     }
 
     @Override
@@ -82,7 +81,15 @@ public class StaffGateway implements IStaffGateway {
 
     @Override
     public Staff saveStaff(Staff staff) {
-        return null;
+        var staffSchema = staffMapper.toSchema(staff, new StaffSchema());
+        staffSchema = staffService.createStaff(staffSchema);
+        staff = staffMapper.toEntity(staffSchema);
+        return staff;
     }
 
+    public Staff getOwner() {
+        var staffSchema = staffService.getOwner();
+        if (staffSchema == null) { return null; }
+        return staffMapper.toEntity(staffSchema);
+    }
 }

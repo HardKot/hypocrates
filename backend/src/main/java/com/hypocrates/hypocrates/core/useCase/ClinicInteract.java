@@ -18,26 +18,30 @@ public class ClinicInteract {
 
     public Result<Clinic, ClinicInteractError> registerClinic() {
         var clinic = clinicGateway.getClinic();
-        if (clinic != null) return Results.success(clinic);
+        var owner = staffGateway.getOwner();
+
+        if (owner != null) return Results.success(clinic);
 
         var ownerEmail = clinicGateway.getEmailOwner();
         if (ownerEmail == null) return Results.failure(new ClinicInteractError.OwnerEmailNotFound());
 
-        var owner = User.builder()
+        var user = User.builder()
                 .email(ownerEmail)
                 .build();
 
-        var personalManager = new PersonalManager(clinic, staffGateway);
-        var staff = personalManager.addNewStaff(owner, personalManager.ownerRole());
 
-        clinic = clinicGateway.saveClinic(clinic);
-        staffGateway.saveStaff(staff);
-        userGateway.saveUser(owner);
+        clinic = clinicGateway.getClinic();
+
+        var personalManager = new PersonalManager(clinic, staffGateway);
+        owner = personalManager.addNewStaff(user, personalManager.ownerRole());
+
+        staffGateway.saveStaff(owner);
+        userGateway.saveUser(user);
 
 
         var token = staffGateway.generateToken(owner.getId());
 
-        staffGateway.sendEmailRegistration(ownerEmail, token, staff);
+        staffGateway.sendEmailRegistration(ownerEmail, token, owner);
 
         return Results.success(clinic);
     }

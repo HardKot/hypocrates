@@ -12,7 +12,6 @@ import java.util.UUID;
 @Getter
 @Builder
 @AllArgsConstructor
-//@NoArgsConstructor
 public class StaffRole {
     private UUID id;
     private String name;

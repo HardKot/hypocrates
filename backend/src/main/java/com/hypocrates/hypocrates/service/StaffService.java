@@ -4,11 +4,12 @@ import com.hypocrates.hypocrates.core.domain.staff.Staff;
 import com.hypocrates.hypocrates.database.repository.StaffRepository;
 import com.hypocrates.hypocrates.database.schema.StaffSchema;
 import com.hypocrates.hypocrates.service.mapper.StaffMapper;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class StaffService {
     private StaffRepository staffRepository;
     private StaffMapper staffMapper;
@@ -27,5 +28,9 @@ public class StaffService {
 
     public StaffSchema entityToSchema(Staff staff) {
         return entityToSchema(staff, new StaffSchema());
+    }
+
+    public StaffSchema getOwner() {
+        return staffRepository.findAllByRole_Name("Owner").orElse(null);
     }
 }

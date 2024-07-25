@@ -23,11 +23,11 @@ public class ConfigSchema {
     private String value;
 
     @LastModifiedDate
-     @Column(name = "update_at")
+    @Column(name = "update_at")
     private Date updateAt;
 
     @CreatedDate
-     @Column(name = "create_at")
+    @Column(name = "create_at")
     private Date createAt;
 
 
