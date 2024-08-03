@@ -1,8 +1,8 @@
 package com.hypocrates.hypocrates.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hypocrates.hypocrates.database.schema.PatientSchema;
-import com.hypocrates.hypocrates.database.schema.StaffSchema;
+import com.hypocrates.hypocrates.database.clinics.schema.PatientSchema;
+import com.hypocrates.hypocrates.database.clinics.schema.StaffSchema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

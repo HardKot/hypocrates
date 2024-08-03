@@ -1,8 +1,10 @@
 services:
   postgres:
-    image: 'postgres:latest'
+    image: 'postgres:16'
+    volumes:
+      - ../tools/multiple-database:/docker-entrypoint-initdb.d
     environment:
-      - 'POSTGRES_DB=clinic_000000'
+      - 'POSTGRES_MULTIPLE_DATABASES="app_clinic_0","app_admin"'
       - 'POSTGRES_PASSWORD=secret'
       - 'POSTGRES_USER=myuser'
     ports:

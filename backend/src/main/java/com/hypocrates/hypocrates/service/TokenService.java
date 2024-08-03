@@ -1,15 +1,12 @@
 package com.hypocrates.hypocrates.service;
 
-import com.hypocrates.hypocrates.database.repository.TokenRepository;
-import com.hypocrates.hypocrates.database.schema.TokenSchema;
+import com.hypocrates.hypocrates.database.admin.repository.TokenRepository;
+import com.hypocrates.hypocrates.database.admin.schema.TokenSchema;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.SecretJwk;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.util.Date;
 import java.util.UUID;
 
 @Service

@@ -1,5 +1,6 @@
-package com.hypocrates.hypocrates.database.schema;
+package com.hypocrates.hypocrates.database.clinics.schema;
 
+import com.hypocrates.hypocrates.database.BaseSchema;
 import jakarta.persistence.*;
 
 import lombok.Getter;

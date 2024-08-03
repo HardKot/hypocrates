@@ -1,5 +1,6 @@
-package com.hypocrates.hypocrates.database;
+package com.hypocrates.hypocrates.database.clinics;
 
+import com.hypocrates.hypocrates.context.ClinicContext;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -18,10 +19,10 @@ public class ClinicDatasourceConfiguration {
 
     @Bean
     @Primary
-    @ConfigurationProperties("spring.datasource.clinic.hikari")
-    public DataSource clinicDataSource() {
+    public DataSource clinicDataSource(ClinicContext clinicContext) {
         return clinicDataSourceProperties()
                 .initializeDataSourceBuilder()
+                .url(clinicDataSourceProperties().getUrl().replace("<clinic_code>", clinicContext.getClinicCode()))
                 .build();
     }
 }

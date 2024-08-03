@@ -1,7 +1,7 @@
 package com.hypocrates.hypocrates.gateway;
 
-import com.hypocrates.hypocrates.database.schema.StaffRoleSchema;
-import com.hypocrates.hypocrates.database.schema.StaffSchema;
+import com.hypocrates.hypocrates.database.clinics.schema.StaffRoleSchema;
+import com.hypocrates.hypocrates.database.clinics.schema.StaffSchema;
 import com.hypocrates.hypocrates.core.domain.staff.IStaffGateway;
 import com.hypocrates.hypocrates.core.domain.staff.Staff;
 import com.hypocrates.hypocrates.core.domain.staff.StaffRole;
@@ -15,8 +15,6 @@ import com.hypocrates.hypocrates.core.useCase.RegistrationStaff.ICreateStaffForm
 import com.hypocrates.hypocrates.service.mapper.StaffMapper;
 import com.hypocrates.hypocrates.service.mapper.StaffRoleMapper;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

@@ -1,7 +1,7 @@
 package com.hypocrates.hypocrates.service.mapper;
 
 import com.hypocrates.hypocrates.core.domain.staff.Staff;
-import com.hypocrates.hypocrates.database.schema.StaffSchema;
+import com.hypocrates.hypocrates.database.clinics.schema.StaffSchema;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

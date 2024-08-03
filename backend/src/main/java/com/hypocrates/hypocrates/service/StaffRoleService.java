@@ -1,9 +1,8 @@
 package com.hypocrates.hypocrates.service;
 
-import com.hypocrates.hypocrates.database.repository.StaffRoleRepository;
-import com.hypocrates.hypocrates.database.schema.StaffRoleSchema;
+import com.hypocrates.hypocrates.database.clinics.repository.StaffRoleRepository;
+import com.hypocrates.hypocrates.database.clinics.schema.StaffRoleSchema;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service

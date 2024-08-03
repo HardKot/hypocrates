@@ -7,13 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ClinicContext {
-    private Environment environment;
-    private ThreadLocal<String> treadClinicCode;
-
-    public ClinicContext(Environment environment) {
-        this.environment = environment;
-        treadClinicCode = new ThreadLocal<>();
-    }
+    private final ThreadLocal<String> treadClinicCode = new ThreadLocal<>();
 
 
     public void setClinic(Clinic clinic) {
@@ -23,13 +17,8 @@ public class ClinicContext {
     public String getClinicCode() {
         var clinicCode = treadClinicCode.get();
         if (clinicCode == null) {
-            clinicCode = environment.getProperty(CLINIC_CODE);
-        }
-        if (clinicCode == null) {
-            clinicCode = "000000";
+            clinicCode = "0";
         }
         return clinicCode;
     }
-
-    private static final String CLINIC_CODE = "CLINIC_CODE";
 }

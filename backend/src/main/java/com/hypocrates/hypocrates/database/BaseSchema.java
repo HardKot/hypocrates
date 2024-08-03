@@ -1,10 +1,10 @@
-package com.hypocrates.hypocrates.database.schema;
+package com.hypocrates.hypocrates.database;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
 import java.util.Date;
 import java.util.UUID;
 

@@ -1,11 +1,9 @@
 package com.hypocrates.hypocrates.service;
 
-import com.hypocrates.hypocrates.core.domain.staff.Staff;
-import com.hypocrates.hypocrates.database.repository.StaffRepository;
-import com.hypocrates.hypocrates.database.schema.StaffSchema;
+import com.hypocrates.hypocrates.database.clinics.repository.StaffRepository;
+import com.hypocrates.hypocrates.database.clinics.schema.StaffSchema;
 import com.hypocrates.hypocrates.service.mapper.StaffMapper;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service

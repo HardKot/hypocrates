@@ -1,10 +1,10 @@
-package com.hypocrates.hypocrates.database.schema;
+package com.hypocrates.hypocrates.database.clinics.schema;
 
 
 import com.hypocrates.hypocrates.core.domain.staff.AppRule;
+import com.hypocrates.hypocrates.database.BaseSchema;
 import jakarta.persistence.*;
 import lombok.*;
-import org.apache.tomcat.util.digester.Rule;
 
 import java.util.Date;
 import java.util.Set;

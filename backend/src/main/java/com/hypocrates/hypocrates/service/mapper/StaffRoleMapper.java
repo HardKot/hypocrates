@@ -2,7 +2,7 @@ package com.hypocrates.hypocrates.service.mapper;
 
 
 import com.hypocrates.hypocrates.core.domain.staff.StaffRole;
-import com.hypocrates.hypocrates.database.schema.StaffRoleSchema;
+import com.hypocrates.hypocrates.database.clinics.schema.StaffRoleSchema;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

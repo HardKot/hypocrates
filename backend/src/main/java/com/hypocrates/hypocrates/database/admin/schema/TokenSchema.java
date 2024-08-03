@@ -1,4 +1,4 @@
-package com.hypocrates.hypocrates.database.schema;
+package com.hypocrates.hypocrates.database.admin.schema;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

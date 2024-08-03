@@ -4,10 +4,14 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    hikari:
-#      allow-pool-suspension: true
     clinic:
-      url: "jdbc:postgresql://localhost:5432/clinic_000000"
+      url: "jdbc:postgresql://localhost:5432/app_clinic_<clinic_code>"
+      driverClassName: org.postgresql.Driver
+      username: "myuser"
+      password: "secret"
+
+    admin:
+      url: "jdbc:postgresql://localhost:5432/app_admin"
       driverClassName: org.postgresql.Driver
       username: "myuser"
       password: "secret"

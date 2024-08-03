@@ -1,4 +1,4 @@
-package com.hypocrates.hypocrates.database;
+package com.hypocrates.hypocrates.database.admin;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -17,26 +17,24 @@ import java.util.Objects;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "clinicEntityManagerFactory",
-        transactionManagerRef = "clinicTransactionManager"
+        entityManagerFactoryRef = "adminEntityManagerFactory",
+        transactionManagerRef = "adminTransactionManager"
 )
-public class ClinicJpaConfiguration {
+public class AdminJpaConfiguration {
     @Bean
-    @Primary
-    public LocalContainerEntityManagerFactoryBean clinicEntityManagerFactory(
-            @Qualifier("clinicDataSource") DataSource dataSource,
+    public LocalContainerEntityManagerFactoryBean adminEntityManagerFactory(
+            @Qualifier("adminDataSource") DataSource dataSource,
             EntityManagerFactoryBuilder builder
     ) {
         return builder
                 .dataSource(dataSource)
-                .packages(new String[] { "com.hypocrates.hypocrates.database" })
+                .packages(new String[] { "com.hypocrates.hypocrates.database.admin" })
                 .build();
     }
 
     @Bean
-    @Primary
-    public PlatformTransactionManager clinicTransactionManager(
-            @Qualifier("clinicEntityManagerFactory") LocalContainerEntityManagerFactoryBean entityManagerFactory
+    public PlatformTransactionManager adminTransactionManager(
+            @Qualifier("adminEntityManagerFactory") LocalContainerEntityManagerFactoryBean entityManagerFactory
     ) {
         return new JpaTransactionManager(Objects.requireNonNull(entityManagerFactory.getObject()));
     }

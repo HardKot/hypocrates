@@ -1,7 +1,8 @@
-package com.hypocrates.hypocrates.database.schema;
+package com.hypocrates.hypocrates.database.clinics.schema;
 
 
 import com.hypocrates.hypocrates.core.domain.staff.AppRule;
+import com.hypocrates.hypocrates.database.BaseSchema;
 import jakarta.persistence.*;
 import lombok.*;
 
