@@ -17,9 +17,9 @@ public abstract class BaseSchema {
 
     @LastModifiedDate
     @Column(name = "update_at")
-    protected Date updateAt;
+    protected Date updateAt = new Date();
 
     @CreatedDate
     @Column(name = "create_at")
-    protected Date createAt;
+    protected Date createAt = new Date();
 }

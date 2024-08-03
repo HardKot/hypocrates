@@ -1,11 +1,13 @@
 package com.hypocrates.hypocrates.database.schema;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 @Table(name = "patient_schema")
 public class PatientSchema extends BaseSchema {
     private String firstname;
