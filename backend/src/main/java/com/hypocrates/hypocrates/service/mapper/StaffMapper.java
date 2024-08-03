@@ -43,6 +43,8 @@ public interface StaffMapper {
     @Mapping(target = "phoneIsActive", source = "staff.phoneIsActive")
     @Mapping(target = "password", source = "staff.password")
     @Mapping(target = "role", source = "staff.role")
+    @Mapping(target = "updateAt", source = "staffSchema.updateAt")
+    @Mapping(target = "createAt", source = "staffSchema.createAt")
     StaffSchema toSchema(Staff staff, StaffSchema staffSchema);
 
     Staff toEntity(StaffSchema staffSchema);
