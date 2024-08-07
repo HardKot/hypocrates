@@ -1,0 +1,9 @@
+###
+POST http://localhost:8080/clinic/
+Content-Type: application/json
+
+{
+  "name": "test_clinic",
+  "clinicEmail": "clinic2@mail.com",
+  "staffEmail": "staff@mail.com"
+}

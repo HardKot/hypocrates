@@ -1,15 +1,18 @@
 spring:
   application:
     name: "hypocrates"
+  flyway:
+    enabled: false
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    generate-ddl: false
   datasource:
     clinic:
       url: "jdbc:postgresql://localhost:5432/app_clinic_<clinic_code>"
       driverClassName: org.postgresql.Driver
       username: "myuser"
       password: "secret"
-
     admin:
       url: "jdbc:postgresql://localhost:5432/app_admin"
       driverClassName: org.postgresql.Driver

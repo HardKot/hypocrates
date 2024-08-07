@@ -1,0 +1,24 @@
+{
+  "Servers" : {
+    "1" : {
+      "Group" : "Clinics",
+      "Name" : "postgres",
+      "Host" : "app_clinic_0",
+      "Port" : 5432,
+      "MaintenanceDB" : "myuser",
+      "Username" : "myuser",
+      "PassFile" : "/../../pgpass",
+      "SSLMode" : "prefer"
+    },
+    "2" : {
+      "Group" : "Admins",
+      "Name" : "postgres",
+      "Host" : "app_clinic_admin",
+      "Port" : 5432,
+      "MaintenanceDB" : "myuser",
+      "Username" : "myuser",
+      "PassFile" : "/../../pgpass",
+      "SSLMode" : "prefer"
+    }
+  }
+}
