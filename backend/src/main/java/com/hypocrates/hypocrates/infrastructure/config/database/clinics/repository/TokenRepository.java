@@ -1,6 +1,6 @@
-package com.hypocrates.hypocrates.infrastructure.config.database.admin.repository;
+package com.hypocrates.hypocrates.infrastructure.config.database.clinics.repository;
 
-import com.hypocrates.hypocrates.infrastructure.config.database.admin.schema.TokenSchema;
+import com.hypocrates.hypocrates.infrastructure.config.database.clinics.schema.TokenSchema;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

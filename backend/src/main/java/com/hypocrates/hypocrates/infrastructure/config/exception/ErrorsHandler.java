@@ -30,4 +30,16 @@ public class ErrorsHandler {
            "errors", List.of(interactError.getMessage()), "errorCode", interactError.getCode()
         ));
     }
+
+    @ExceptionHandler(NotFoundSchema.class)
+    public ResponseEntity<Map<String, Object>> handleNotFoundSchema (NotFoundSchema notFoundSchema) {
+        return ResponseEntity.badRequest().body(Map.of(
+                "errors", List.of(notFoundSchema.getMessage())
+        ));
+    }
+
+    @ExceptionHandler(DataNotUnique.class)
+    public ResponseEntity<Map<String, Object>> handleDataNotUnique (DataNotUnique dataNotUnique) {
+        return ResponseEntity.badRequest().body(Map.of("errors", List.of(dataNotUnique.getMessage())));
+    }
 }

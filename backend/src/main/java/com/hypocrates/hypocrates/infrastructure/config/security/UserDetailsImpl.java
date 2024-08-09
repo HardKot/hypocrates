@@ -18,6 +18,7 @@ import java.util.UUID;
 public class UserDetailsImpl implements UserDetails {
     private UUID id;
     private String email;
+    private boolean emailIsActive;
 
     @JsonIgnore
     private String password;
@@ -29,6 +30,7 @@ public class UserDetailsImpl implements UserDetails {
         return new UserDetailsImpl(
                 staff.getId(),
                 staff.getEmail(),
+                staff.getEmailIsActive(),
                 staff.getPassword(),
                 staff.getRules()
                         .stream()
@@ -60,6 +62,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return emailIsActive;
     }
 }

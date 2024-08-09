@@ -3,6 +3,7 @@ package com.hypocrates.hypocrates.infrastructure.clinic;
 import com.hypocrates.hypocrates.entity.clinic.ClinicModel;
 import com.hypocrates.hypocrates.entity.clinic.IClinicGateway;
 import com.hypocrates.hypocrates.infrastructure.ClinicContext;
+import com.hypocrates.hypocrates.infrastructure.common.ConfirmedService;
 import com.hypocrates.hypocrates.infrastructure.config.database.admin.repository.ClinicSchemaRepository;
 import com.hypocrates.hypocrates.infrastructure.config.database.admin.repository.ConfirmedCodeRepository;
 import com.hypocrates.hypocrates.infrastructure.config.database.admin.schema.ConfirmedCodeSchema;
@@ -26,14 +27,13 @@ import java.util.function.Function;
 @Slf4j
 @AllArgsConstructor
 public class ClinicGateway implements IClinicGateway {
-    private final ClinicContext clinicContext;
     private RandomLib randomLib;
     private EmailSenderLib emailSender;
     private TemplateLibs templateLibs;
 
     private ClinicSchemaRepository clinicSchemaRepository;
     private ConfirmedCodeRepository confirmedCodeRepository;
-
+    private ConfirmedService confirmedService;
     private ClinicMapper clinicMapper;
 
     @Qualifier("createClinicDatabase")
@@ -52,11 +52,10 @@ public class ClinicGateway implements IClinicGateway {
 
     @Override
     public String sendActiveEmail(ClinicModel clinic) throws TemplateException, IOException {
-        var code = new ConfirmedCodeSchema();
-        code.setCode(randomLib.randomCode());
+        var code = confirmedService.createConfirmedCode();
         var message = templateLibs.getBody("ConfirmationEmailClinic", Map.of("code", code.getCode()));
         emailSender.sendEmail(clinic.getEmail(), message);
-        code = confirmedCodeRepository.save(code);
+
         return code.getId().toString();
     }
 

@@ -3,6 +3,7 @@ package com.hypocrates.hypocrates.infrastructure.staff;
 import com.hypocrates.hypocrates.entity.staff.IStaffGateway;
 import com.hypocrates.hypocrates.entity.staff.StaffModel;
 import com.hypocrates.hypocrates.entity.staff.StaffRoleModel;
+import com.hypocrates.hypocrates.infrastructure.common.ConfirmedService;
 import com.hypocrates.hypocrates.infrastructure.config.database.admin.repository.ConfirmedCodeRepository;
 import com.hypocrates.hypocrates.infrastructure.config.database.admin.schema.ConfirmedCodeSchema;
 import com.hypocrates.hypocrates.infrastructure.config.database.clinics.repository.StaffRepository;
@@ -14,6 +15,7 @@ import com.hypocrates.hypocrates.infrastructure.libs.RandomLib;
 import com.hypocrates.hypocrates.infrastructure.libs.TemplateLibs;
 import com.hypocrates.hypocrates.infrastructure.staffRole.StaffRoleMapper;
 import freemarker.template.TemplateException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -26,7 +28,6 @@ import java.util.UUID;
 @Component
 @AllArgsConstructor
 public class StaffGateway implements IStaffGateway {
-    private final StaffRepository staffRepository;
     private final StaffMapper staffMapper;
     private final RandomLib randomLib;
     private final EmailSenderLib emailSender;
@@ -34,26 +35,31 @@ public class StaffGateway implements IStaffGateway {
     private final TemplateLibs templateLibs;
     private final StaffRoleMapper staffRoleMapper;
     private final StaffRoleRepository staffRoleRepository;
+    private final StaffService staffService;
+    private final ConfirmedService confirmedService;
 
     @Override
     public StaffModel getByEmail(String email) {
-        return staffRepository.findByEmail(email).map(staffMapper::schemaToModel).orElse(null);
+        try {
+            StaffSchema staffSchema = staffService.findByEmail(email);
+            return staffMapper.schemaToModel(staffSchema);
+        } catch (EntityNotFoundException e) {
+            return null;
+        }
     }
 
     @Override
     public String sendActiveEmail(StaffModel staff) throws TemplateException, IOException {
-        var code = new ConfirmedCodeSchema();
-        code.setCode(randomLib.randomCode());
+        var code = confirmedService.createConfirmedCode();
         var message = templateLibs.getBody("ConfirmationEmailStaff", Map.of("code", code.getCode()));
         emailSender.sendEmail(staff.getEmail(), message);
-        code = confirmedCodeRepository.save(code);
         return code.getId().toString();
     }
 
     @Override
     public StaffModel saveStaff(StaffModel staff) {
         StaffSchema staffSchema = staffMapper.modelToSchema(staff);
-        staffSchema = staffRepository.save(staffSchema);
+        staffSchema = staffService.save(staffSchema);
         return staffMapper.schemaToModel(staffSchema);
     }
 

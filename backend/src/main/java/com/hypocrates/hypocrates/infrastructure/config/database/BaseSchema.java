@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -21,9 +22,9 @@ public abstract class BaseSchema {
 
     @LastModifiedDate
     @Column(name = "update_at")
-    protected Date updateAt = new Date();
+    protected LocalDateTime updateAt = LocalDateTime.now();
 
     @CreatedDate
     @Column(name = "create_at")
-    protected Date createAt = new Date();
+    protected LocalDateTime createAt = LocalDateTime.now();
 }

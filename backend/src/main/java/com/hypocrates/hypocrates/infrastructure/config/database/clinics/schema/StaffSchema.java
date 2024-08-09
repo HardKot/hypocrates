@@ -1,6 +1,7 @@
 package com.hypocrates.hypocrates.infrastructure.config.database.clinics.schema;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hypocrates.hypocrates.entity.staff.AppRule;
 import com.hypocrates.hypocrates.infrastructure.config.database.BaseSchema;
 import com.hypocrates.hypocrates.infrastructure.config.database.admin.schema.ClinicSchema;
@@ -32,10 +33,11 @@ public class StaffSchema extends BaseSchema {
     private String phone;
 
     @Column(name = "email_is_active")
-    private boolean emailIsActive;
+    private Boolean emailIsActive;
     @Column(name = "phone_is_active")
     private boolean phoneIsActive;
 
+    @JsonIgnore
     private String password;
 
     @ManyToOne(fetch = FetchType.EAGER)
