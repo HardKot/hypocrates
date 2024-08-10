@@ -1,10 +1,14 @@
 package com.hypocrates.hypocrates.infrastructure.auth;
 
 import com.hypocrates.hypocrates.infrastructure.auth.dto.ConfirmedCode;
+import com.hypocrates.hypocrates.infrastructure.auth.dto.StaffRegistration;
 import com.hypocrates.hypocrates.infrastructure.common.ConfirmedService;
 import com.hypocrates.hypocrates.infrastructure.config.database.clinics.schema.StaffSchema;
 import com.hypocrates.hypocrates.infrastructure.config.security.UserDetailsImpl;
 import com.hypocrates.hypocrates.infrastructure.staff.StaffService;
+import com.hypocrates.hypocrates.useCase.InteractError;
+import com.hypocrates.hypocrates.useCase.staffInteract.StaffInteract;
+import com.hypocrates.hypocrates.useCase.staffInteract.dto.StaffRegistrationResult;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +25,7 @@ import java.util.UUID;
 public class AuthController {
     private final StaffService staffService;
     private final ConfirmedService confirmedService;
+    private final StaffInteract staffInteract;
 
     @GetMapping("/")
     public String login() {
@@ -31,6 +36,19 @@ public class AuthController {
     public String registration() {
         return "StaffRegistration";
     }
+
+    @PostMapping
+    public ResponseEntity<StaffRegistrationResult> staffRegistration(
+            @RequestBody @Valid StaffRegistration form
+            ) throws InteractError {
+        var result = staffInteract.registration(form);
+
+        if (result.hasSuccess()) {
+            return ResponseEntity.ok().body(result.orElse(new StaffRegistrationResult(null)));
+        }
+        throw result.getFailure().orElse(new InteractError("Unknown error"));
+    }
+
 
     @PostMapping("/activate/staff")
     public ResponseEntity<StaffSchema> activateStaff(@RequestBody @Valid ConfirmedCode confirmedCode) {

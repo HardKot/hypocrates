@@ -42,4 +42,9 @@ public class ErrorsHandler {
     public ResponseEntity<Map<String, Object>> handleDataNotUnique (DataNotUnique dataNotUnique) {
         return ResponseEntity.badRequest().body(Map.of("errors", List.of(dataNotUnique.getMessage())));
     }
+
+    @ExceptionHandler(ServiceException.class)
+    public ResponseEntity<Map<String, Object>> handleServiceException (ServiceException serviceException) {
+        return ResponseEntity.badRequest().body(Map.of("errors", List.of(serviceException.getMessage())));
+    }
 }

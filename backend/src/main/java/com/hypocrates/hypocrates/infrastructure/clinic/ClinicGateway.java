@@ -1,6 +1,7 @@
 package com.hypocrates.hypocrates.infrastructure.clinic;
 
 import com.hypocrates.hypocrates.entity.clinic.ClinicModel;
+import com.hypocrates.hypocrates.entity.clinic.IClinicConfiguration;
 import com.hypocrates.hypocrates.entity.clinic.IClinicGateway;
 import com.hypocrates.hypocrates.infrastructure.ClinicContext;
 import com.hypocrates.hypocrates.infrastructure.common.ConfirmedService;
@@ -35,6 +36,7 @@ public class ClinicGateway implements IClinicGateway {
     private ConfirmedCodeRepository confirmedCodeRepository;
     private ConfirmedService confirmedService;
     private ClinicMapper clinicMapper;
+    private ClinicConfigurationService clinicConfigurationService;
 
     @Qualifier("createClinicDatabase")
     private Function<String, Void> createClinicDatabase;
@@ -74,5 +76,10 @@ public class ClinicGateway implements IClinicGateway {
         createClinicDatabase.apply(clinicSchema.getCode());
 
         return clinicMapper.schemaToModel(clinicSchema);
+    }
+
+    @Override
+    public IClinicConfiguration clinicConfiguration() {
+        return clinicConfigurationService.getClinicConfiguration();
     }
 }

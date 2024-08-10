@@ -16,6 +16,12 @@ public record RegistrationClinicForm (
 
         @NotEmpty
         @Email
-        String staffEmail
+        String staffEmail,
+
+        @NotEmpty
+        String password,
+
+        @NotEmpty
+        String confirmPassword
 ) implements IClinicRegistration {
 }

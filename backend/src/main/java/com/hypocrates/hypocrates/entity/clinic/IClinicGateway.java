@@ -17,4 +17,6 @@ public interface IClinicGateway {
     String getEmptyClinicCode();
 
     ClinicModel createClinic(ClinicModel clinic);
+
+    IClinicConfiguration clinicConfiguration();
 }

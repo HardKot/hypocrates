@@ -21,6 +21,8 @@ public class ClinicInteract {
     private IStaffGateway staffGateway;
 
     public Result<ClinicRegistrationResult, InteractError> registrationClinic(IClinicRegistration dto) {
+        if (!dto.password().equals(dto.confirmPassword())) return Results.failure(new ClinicInteractError("Пароли не совпадают"));
+
         var clinicCode = clinicGateway.getEmptyClinicCode();
 
         var clinic = ClinicModel.builder()
@@ -40,6 +42,7 @@ public class ClinicInteract {
         }
         administratorRole = staffGateway.getStaffRoleByName("Owner");
         staff.setRole(administratorRole);
+        staff.setPassword(staffGateway.passwordEncoder(dto.password()));
         staff = staffGateway.saveStaff(staff);
         String clinicActivateCode;
         String staffActivateCode;

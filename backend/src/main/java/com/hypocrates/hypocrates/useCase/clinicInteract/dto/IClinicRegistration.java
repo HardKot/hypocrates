@@ -4,4 +4,6 @@ public interface IClinicRegistration {
     String name();
     String clinicEmail();
     String staffEmail();
+    String password();
+    String confirmPassword();
 }

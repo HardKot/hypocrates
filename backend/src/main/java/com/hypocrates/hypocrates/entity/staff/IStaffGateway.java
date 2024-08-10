@@ -13,4 +13,8 @@ public interface IStaffGateway {
     StaffRoleModel saveStaffRole(StaffRoleModel staffRole);
 
     StaffRoleModel getStaffRoleByName(String roleName);
+
+    String passwordEncoder(String password);
+
+    boolean emailExists(String email);
 }

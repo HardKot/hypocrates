@@ -18,6 +18,7 @@ import freemarker.template.TemplateException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -37,6 +38,8 @@ public class StaffGateway implements IStaffGateway {
     private final StaffRoleRepository staffRoleRepository;
     private final StaffService staffService;
     private final ConfirmedService confirmedService;
+    private final PasswordEncoder passwordEncoder;
+    private final StaffRepository staffRepository;
 
     @Override
     public StaffModel getByEmail(String email) {
@@ -74,5 +77,15 @@ public class StaffGateway implements IStaffGateway {
     @Override
     public StaffRoleModel getStaffRoleByName(String name) {
         return staffRoleRepository.findByName(name).map(staffRoleMapper::schemaToModel).orElse(null);
+    }
+
+    @Override
+    public String passwordEncoder(String password) {
+        return passwordEncoder.encode(password);
+    }
+
+    @Override
+    public boolean emailExists(String email) {
+        return staffRepository.existsByEmail(email);
     }
 }
