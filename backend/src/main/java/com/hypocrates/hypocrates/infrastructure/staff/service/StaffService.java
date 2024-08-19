@@ -1,10 +1,13 @@
-package com.hypocrates.hypocrates.infrastructure.staff;
+package com.hypocrates.hypocrates.infrastructure.staff.service;
 
 import com.hypocrates.hypocrates.infrastructure.common.ConfirmedService;
 import com.hypocrates.hypocrates.infrastructure.config.database.admin.repository.ConfirmedCodeRepository;
 import com.hypocrates.hypocrates.infrastructure.config.database.clinics.repository.StaffRepository;
 import com.hypocrates.hypocrates.infrastructure.config.database.clinics.schema.StaffSchema;
 import com.hypocrates.hypocrates.infrastructure.config.exception.NotFoundSchema;
+import com.hypocrates.hypocrates.infrastructure.staff.form.CreateStaffForm;
+
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,11 +23,12 @@ public class StaffService {
     private final ConfirmedService confirmedService;
 
     public StaffSchema save(StaffSchema staffSchema) {
-        if (staffSchema.getId() == null) throw new NotFoundSchema("Сотрудник с данным id не найден");
+        if (staffSchema.getId() == null)
+            throw new NotFoundSchema("Сотрудник с данным id не найден");
         return staffRepository.save(staffSchema);
     }
 
-    public StaffSchema create(StaffSchema staffSchema) {
+    public StaffSchema createStaff(@Valid CreateStaffForm form) {
         if (staffRepository.existsByEmail(staffSchema.getEmail())) {
             throw new RuntimeException("Сотрудник с таким email уже существует");
         }
@@ -33,16 +37,19 @@ public class StaffService {
     }
 
     public StaffSchema findByEmail(String email) {
-        return staffRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Сотрудник не найден"));
+        return staffRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Сотрудник не найден"));
     }
 
     public StaffSchema confirmedEmail(UUID confirmedId, String code) {
         var uid = confirmedService.getEntityId(confirmedId, code);
-        var staff = staffRepository.findById(uid).orElseThrow(() -> new NotFoundSchema("Сотрудник с данным id не найден"));
+        var staff = staffRepository.findById(uid)
+                .orElseThrow(() -> new NotFoundSchema("Сотрудник с данным id не найден"));
 
         staff.setEmailIsActive(true);
         staffRepository.save(staff);
 
         return staff;
     }
+
 }

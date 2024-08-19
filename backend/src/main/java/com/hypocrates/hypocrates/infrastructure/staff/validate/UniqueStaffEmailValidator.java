@@ -1,5 +1,4 @@
-package com.hypocrates.hypocrates.infrastructure.staff;
-
+package com.hypocrates.hypocrates.infrastructure.staff.validate;
 
 import com.hypocrates.hypocrates.infrastructure.config.database.admin.repository.ClinicSchemaRepository;
 import com.hypocrates.hypocrates.infrastructure.config.database.clinics.repository.StaffRepository;
@@ -8,11 +7,9 @@ import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-
 @RequiredArgsConstructor
 public class UniqueStaffEmailValidator implements ConstraintValidator<UniqueStaffEmail, String> {
-    private final  StaffRepository staffRepository;
+    private final StaffRepository staffRepository;
 
     @Override
     public void initialize(UniqueStaffEmail constraintAnnotation) {
