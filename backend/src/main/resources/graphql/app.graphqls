@@ -16,4 +16,9 @@ type Mutation {
 }
 
 
+type ErrorMessage {
+    key: String
+    value: String
+}
+
 scalar Date

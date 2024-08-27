@@ -10,6 +10,7 @@ input CreateStaffForm {
     phone: String
 }
 
+
 type StaffRole {
     id: ID
 
