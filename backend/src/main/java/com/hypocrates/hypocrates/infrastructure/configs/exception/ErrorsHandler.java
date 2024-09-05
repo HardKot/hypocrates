@@ -1,5 +1,6 @@
 package com.hypocrates.hypocrates.infrastructure.configs.exception;
 
+import com.hypocrates.hypocrates.application.exception.ServiceException;
 import com.hypocrates.hypocrates.application.useCase.InteractError;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -31,8 +32,8 @@ public class ErrorsHandler {
         ));
     }
 
-    @ExceptionHandler(NotFoundSchema.class)
-    public ResponseEntity<Map<String, Object>> handleNotFoundSchema (NotFoundSchema notFoundSchema) {
+    @ExceptionHandler(EntityFoundSchema.class)
+    public ResponseEntity<Map<String, Object>> handleNotFoundSchema (EntityFoundSchema notFoundSchema) {
         return ResponseEntity.badRequest().body(Map.of(
                 "errors", List.of(notFoundSchema.getMessage())
         ));

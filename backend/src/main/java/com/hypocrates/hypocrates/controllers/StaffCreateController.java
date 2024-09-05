@@ -1,8 +1,8 @@
 package com.hypocrates.hypocrates.controllers;
 
 import com.hypocrates.hypocrates.configs.database.clinics.schema.StaffSchema;
-import com.hypocrates.hypocrates.infrastructure.form.CreateStaffFullForm;
-import com.hypocrates.hypocrates.infrastructure.form.InviteStaffFullForm;
+import com.hypocrates.hypocrates.application.dto.CreateStaffFullForm;
+import com.hypocrates.hypocrates.application.dto.InviteStaffFullForm;
 import com.hypocrates.hypocrates.application.services.StaffService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;

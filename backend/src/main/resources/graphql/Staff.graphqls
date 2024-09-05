@@ -8,6 +8,21 @@ input CreateStaffForm {
 
     email: String
     phone: String
+    password: String
+}
+
+input InviteStaffShortForm {
+    email: String
+}
+
+input InviteStaffFullForm {
+    email: String
+    firstname: String
+    lastname: String
+    patronymic: String
+    birthday: String
+    avatarUrl: String
+    phone: String
 }
 
 

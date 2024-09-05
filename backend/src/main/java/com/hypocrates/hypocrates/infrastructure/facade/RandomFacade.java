@@ -1,5 +1,6 @@
 package com.hypocrates.hypocrates.infrastructure.facade;
 
+import com.hypocrates.hypocrates.interfaces.IRandomFacade;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -10,7 +11,7 @@ import java.util.Locale;
 @Component
 @Slf4j
 @AllArgsConstructor
-public class RandomFacade {
+public class RandomFacade implements IRandomFacade {
     private static final String digits = "0123456789";
     private static final String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String lower = upper.toLowerCase(Locale.ROOT);
@@ -20,6 +21,7 @@ public class RandomFacade {
     private static final String digitsCharsLower = lower + digits;
 
 
+    @Override
     public String randomCode() {
         var random = new SecureRandom();
         var buf = new StringBuilder();
@@ -28,6 +30,7 @@ public class RandomFacade {
         return buf.toString();
     }
 
+    @Override
     public String randomString(int length) {
         var random = new SecureRandom();
         var buf = new StringBuilder();
@@ -37,6 +40,7 @@ public class RandomFacade {
         return buf.toString();
     }
 
+    @Override
     public String randomLowerChars(int length) {
         return getRandom(length, lower);
     }

@@ -1,6 +1,6 @@
 package com.hypocrates.hypocrates.infrastructure.form;
 
-import com.hypocrates.hypocrates.application.services.UniqueClinicEmail.UniqueClinicEmail;
+import com.hypocrates.hypocrates.application.services.validator.UniqueClinicEmail.UniqueClinicEmail;
 import com.hypocrates.hypocrates.application.useCase.clinicInteract.dto.IClinicRegistration;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

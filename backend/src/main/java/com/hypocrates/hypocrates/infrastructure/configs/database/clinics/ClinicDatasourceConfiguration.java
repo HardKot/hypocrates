@@ -1,9 +1,9 @@
 package com.hypocrates.hypocrates.infrastructure.configs.database.clinics;
 
-import com.hypocrates.hypocrates.configs.database.admin.schema.Clinic;
+import com.hypocrates.hypocrates.domain.adminManagement.entities.Clinic;
+import com.hypocrates.hypocrates.domain.adminManagement.interfaces.repository.IClinicRepository;
 import com.hypocrates.hypocrates.infrastructure.context.ClinicContext;
 
-import com.hypocrates.hypocrates.repositories.ClinicSchemaRepository;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +20,6 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 
 import javax.sql.DataSource;
 
@@ -43,10 +42,10 @@ public class ClinicDatasourceConfiguration {
     @Value("${spring.jpa.show-sql}")
     private Boolean sqlShow;
     private final Map<Object, Object> dataSources = new HashMap<>();
-    private final ClinicSchemaRepository clinicSchemaRepository;
+    private final IClinicRepository clinicSchemaRepository;
     private final ClinicRoutingDataSource clinicRoutingDataSource = new ClinicRoutingDataSource();
 
-    public ClinicDatasourceConfiguration(ClinicSchemaRepository clinicSchemaRepository) {
+    public ClinicDatasourceConfiguration(IClinicRepository clinicSchemaRepository) {
         this.clinicSchemaRepository = clinicSchemaRepository;
     }
 

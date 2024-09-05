@@ -10,11 +10,11 @@ type Query {
     staffRoleById(id: ID): StaffRole
 }
 
-
 type Mutation {
     createStaff(form: CreateStaffForm): Staff
+    invitedStaff(form: InviteStaffFullForm): Boolean
+    invitedStaffOnlyEmail(form: InviteStaffShortForm): Boolean
 }
-
 
 type ErrorMessage {
     key: String

@@ -33,3 +33,14 @@ services:
       start_period: 10s
       retries: 5
     entrypoint: /bin/sh -c "cp -f /pgadmin4/pgpass /var/lib/pgadmin; chmod 600 /var/lib/pgadmin/pgpass; /entrypoint.sh;"
+  redis:
+    image: redis:7.4.0
+    restart: "no"
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: redis-cli ping
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+      retries: 5

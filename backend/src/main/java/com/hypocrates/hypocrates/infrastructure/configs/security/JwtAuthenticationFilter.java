@@ -1,5 +1,6 @@
 package com.hypocrates.hypocrates.infrastructure.configs.security;
 
+import com.hypocrates.hypocrates.interfaces.IJwtServiceFacade;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private final JwtService jwtService;
+    private final IJwtServiceFacade jwtService;
     private final UserDetailsServiceImpl userDetailsService;
 
     @Override

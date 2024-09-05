@@ -7,6 +7,6 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 public class ClinicRoutingDataSource extends AbstractRoutingDataSource {
     @Override
     protected Object determineCurrentLookupKey() {
-        return ClinicContext.getClinicCode();
+        return ClinicContext.getClinic();
     }
 }

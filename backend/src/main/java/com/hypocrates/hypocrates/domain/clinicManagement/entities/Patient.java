@@ -13,6 +13,11 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 public class Patient extends AbstractUser {
+    public enum Gender {
+        Male, Female, Other
+    }
+
     private String policyNumber;
 
+    private Gender gender;
 }

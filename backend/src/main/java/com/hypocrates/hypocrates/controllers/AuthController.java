@@ -1,11 +1,8 @@
 package com.hypocrates.hypocrates.controllers;
 
-import com.hypocrates.hypocrates.infrastructure.dto.ConfirmedCode;
-import com.hypocrates.hypocrates.application.services.ConfirmedService;
 import com.hypocrates.hypocrates.configs.database.clinics.schema.StaffSchema;
 import com.hypocrates.hypocrates.infrastructure.configs.security.UserDetailsImpl;
 import com.hypocrates.hypocrates.application.services.StaffService;
-import com.hypocrates.hypocrates.application.useCase.staffInteract.StaffInteract;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,5 @@
 package com.hypocrates.hypocrates.domain.clinicManagement.entities;
 
-import com.hypocrates.hypocrates._entities.staff.AppRule;
 import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -22,5 +21,9 @@ public class StaffRole extends AbstractClinicEntity {
                 .name("Owner")
                 .rules(Set.of(AppRule.values()))
                 .build();
+    }
+
+    public enum AppRule {
+        INVITED_STAFF
     }
 }

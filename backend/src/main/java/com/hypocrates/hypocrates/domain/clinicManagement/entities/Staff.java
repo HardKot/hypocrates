@@ -1,13 +1,13 @@
 package com.hypocrates.hypocrates.domain.clinicManagement.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import com.hypocrates.hypocrates.domain.adminManagement.entities.Clinic;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -21,8 +21,27 @@ public class Staff extends AbstractUser {
     @ManyToOne(fetch = FetchType.LAZY)
     private Staff invitedStaff;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Staff> securityToke;
+    @ManyToOne
+    @JoinColumn(name = "clinic_id")
+    private Clinic clinic;
+
+    private Date dateBanned;
+
+    public boolean isBanned() {
+        if (dateBanned == null) {
+            return true;
+        }
+        return dateBanned.before(new Date());
+    }
+
+    public boolean hasAccess(StaffRole.AppRule appRule) {
+        Set<StaffRole.AppRule> rules = getRole().getRules();
+        for (StaffRole.AppRule rule : rules) {
+            if (rule.equals(appRule)) return true;
+        }
+
+        return false;
+    }
 
     public static Staff Administrator(String email) {
         var role = StaffRole.Owner();

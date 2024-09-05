@@ -1,97 +1,124 @@
 package com.hypocrates.hypocrates.infrastructure.gateway;
 
-import com.hypocrates.hypocrates._entities.staff.IStaffGateway;
+import com.hypocrates.hypocrates.application.dto.IInvitedStaffForm;
+import com.hypocrates.hypocrates.application.dto.UpdateStaffForm;
+import com.hypocrates.hypocrates.domain.adminManagement.entities.Clinic;
+import com.hypocrates.hypocrates.domain.clinicManagement.entities.ClinicConfiguration;
 import com.hypocrates.hypocrates.domain.clinicManagement.entities.Staff;
-import com.hypocrates.hypocrates.domain.clinicManagement.entities.StaffRole;
-import com.hypocrates.hypocrates.application.services.ConfirmedService;
-import com.hypocrates.hypocrates.domain.clinicManagement.interfaces.mapper.IStaffRoleMapper;
-import com.hypocrates.hypocrates.repositories.ConfirmedCodeRepository;
-import com.hypocrates.hypocrates.domain.clinicManagement.interfaces.repository.IStaffRepository;
-import com.hypocrates.hypocrates.domain.clinicManagement.interfaces.repository.IStaffRoleRepository;
-import com.hypocrates.hypocrates.configs.database.clinics.schema.StaffRoleSchema;
-import com.hypocrates.hypocrates.configs.database.clinics.schema.StaffSchema;
-import com.hypocrates.hypocrates.infrastructure.facade.EmailSenderFacade;
-import com.hypocrates.hypocrates.infrastructure.facade.RandomFacade;
-import com.hypocrates.hypocrates.infrastructure.facade.TemplateFacade;
+import com.hypocrates.hypocrates.domain.clinicManagement.interfaces.gateway.IStaffGateway;
 import com.hypocrates.hypocrates.domain.clinicManagement.interfaces.mapper.IStaffMapper;
-import com.hypocrates.hypocrates.application.services.StaffService;
-import com.hypocrates.hypocrates.application.useCase.staffInteract.dto.IStaffRegistration;
-import freemarker.template.TemplateException;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.AllArgsConstructor;
+import com.hypocrates.hypocrates.domain.clinicManagement.interfaces.repository.IClinicRowConfigurationRepository;
+import com.hypocrates.hypocrates.domain.clinicManagement.interfaces.repository.IStaffRepository;
+import com.hypocrates.hypocrates.infrastructure.context.ClinicContext;
+import com.hypocrates.hypocrates.interfaces.*;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.util.Map;
+import java.util.Optional;
+
 
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class StaffGateway implements IStaffGateway {
-    private final IStaffMapper staffMapper;
-    private final RandomFacade randomLib;
-    private final EmailSenderFacade emailSender;
-    private final ConfirmedCodeRepository confirmedCodeRepository;
-    private final TemplateFacade templateLibs;
-    private final IStaffRoleMapper staffRoleMapper;
-    private final IStaffRoleRepository staffRoleRepository;
-    private final StaffService staffService;
-    private final ConfirmedService confirmedService;
-    private final PasswordEncoder passwordEncoder;
+    private final IRandomFacade randomFacade;
     private final IStaffRepository staffRepository;
+    private final IEmailSenderFacade emailSenderFacade;
+    private final IJwtServiceFacade jwtServiceFacade;
+    private final IKeyValueStorage keyValueStorage;
+    private final ITemplateFacade templateFacade;
+    private final IStaffMapper staffMapper;
+    private final IClinicRowConfigurationRepository configurationRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public Staff getByEmail(String email) {
+    public String getRandomString(int length) {
+        return randomFacade.randomString(length);
+    }
+
+    @Override
+    public Staff saveStaff(Staff staff) {
+        return staffRepository.save(staff);
+    }
+
+    @Override
+    public IArrayValueStorage getArrayValueStorage(String key) {
+        return keyValueStorage.arrayValueStorage(key);
+    }
+
+    @Override
+    public IJwtTokenBuilder tokenBuilder() {
+        return jwtServiceFacade.buildToken();
+    }
+
+
+    @Override
+    public boolean sendMail(String to, String body) {
+        return emailSenderFacade.sendMail(to, body);
+    }
+
+
+    @Override
+    public ITemplateBuilder templateBuilder() {
         try {
-            StaffSchema staffSchema = staffService.findByEmail(email);
-            return staffMapper.schemaToModel(staffSchema);
-        } catch (EntityNotFoundException e) {
+            return templateFacade.templateBuilder();
+        } catch (Exception e) {
+            log.error(e.getMessage());
             return null;
         }
     }
 
     @Override
-    public String sendActiveEmail(Staff staff) throws TemplateException, IOException {
-        var code = confirmedService.createConfirmedCode();
-        var message = templateLibs.getBody("ConfirmationEmailStaff", Map.of("code", code.getCode()));
-        emailSender.sendEmail(staff.getEmail(), message);
-        return code.getId().toString();
+    public Optional<Staff> getStaffByEmail(String email) {
+        return staffRepository.findByEmail(email);
     }
 
     @Override
-    public Staff saveStaff(Staff staff) {
-        StaffSchema staffSchema = staffMapper.modelToSchema(staff);
-        staffSchema = staffService.save(staffSchema);
-        return staffMapper.schemaToModel(staffSchema);
+    public Staff mapFormToSchema(IInvitedStaffForm form) {
+        return staffMapper.formToSchema(form);
+    }
+
+
+
+    @Override
+    public Clinic getCurrentClinic() {
+        return ClinicContext.getClinic();
     }
 
     @Override
-    public StaffRole saveStaffRole(StaffRole staffRoleModel) {
-        StaffRoleSchema staffRoleSchema = staffRoleMapper.modelToSchema(staffRoleModel);
-        staffRoleSchema = staffRoleRepository.save(staffRoleSchema);
-        staffRoleModel = staffRoleMapper.schemaToModel(staffRoleSchema);
-        return staffRoleModel;
+    public ClinicConfiguration getClinicConfiguration() {
+        return ClinicConfiguration.getClinicFactory(configurationRepository.getAll());
     }
 
     @Override
-    public StaffRole getStaffRoleByName(String name) {
-        return staffRoleRepository.findByName(name).map(staffRoleMapper::schemaToModel).orElse(null);
+    public Staff mapFormToSchema(UpdateStaffForm form, Staff entity) {
+        return staffMapper.formToEntity(form, entity);
     }
 
     @Override
-    public String passwordEncoder(String password) {
-        return passwordEncoder.encode(password);
+    public String encryptPassword(String password) {
+        return bCryptPasswordEncoder.encode(password);
     }
 
     @Override
-    public boolean emailExists(String email) {
-        return staffRepository.existsByEmail(email);
+    public IEmailSenderGateway emailSender() {
+        try {
+            return new EmailSenderGateway(templateFacade.templateBuilder(), emailSenderFacade);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     @Override
-    public Staff createStaffByForm(IStaffRegistration form) {
-        return staffMapper.schemaToModel(staffService.createStaffByForm(form));
+    public String extractUsernameFromToken(String token) {
+        return jwtServiceFacade.extractUsername(token);
+    }
+
+    @Override
+    public String extractTargetFromToken(String token) {
+        return jwtServiceFacade.extractTarget(token);
     }
 }
