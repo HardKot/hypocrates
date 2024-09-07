@@ -1,5 +1,6 @@
 package com.hypocrates.hypocrates.domain.adminManagement.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -13,6 +14,8 @@ public class Clinic extends AbstractAdminEntity {
     private String code;
     private String name;
     private String address;
+
+    @Column(name = "avatar_url")
     private String avatarUrl;
     private String email;
 

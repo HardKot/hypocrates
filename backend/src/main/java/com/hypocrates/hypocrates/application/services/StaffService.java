@@ -22,11 +22,15 @@ import org.springframework.validation.annotation.Validated;
 @Slf4j
 @Service
 @Validated
-@RequiredArgsConstructor
 public class StaffService {
     private final IStaffGateway staffGateway;
+    private final IArrayValueStorage activateStaffCodeStorage ;
 
-    private final IArrayValueStorage activateStaffCodeStorage = staffGateway.getArrayValueStorage("staffActivate");
+    public StaffService(IStaffGateway staffGateway) {
+        this.staffGateway = staffGateway;
+        this.activateStaffCodeStorage = staffGateway.getArrayValueStorage("staffActivate");
+    }
+
 
     public Result<ActivateEntityCode, StaffServiceException> sendActivateEmail(Staff staff) {
         if (staff.getIsActive()) {
@@ -48,7 +52,7 @@ public class StaffService {
         if (!staffGateway.emailSender()
                 .email(staff.getEmail())
                 .template("activateStaff")
-                .payload("clinicName", staff.getClinic().getName())
+//                .payload("clinicName", staff.getClinic().getName())
                 .payload("firstname", staff.getFirstname())
                 .payload("lastname", staff.getLastname())
                 .payload("patronymic", staff.getPatronymic())
@@ -76,7 +80,7 @@ public class StaffService {
             staffGateway.emailSender()
                     .email(staff.getEmail())
                     .template("activateStaff")
-                    .payload("clinicName", staff.getClinic().getName())
+//                    .payload("clinicName", staff.getClinic().getName())
                     .payload("firstname", staff.getFirstname())
                     .payload("lastname", staff.getLastname())
                     .payload("patronymic", staff.getPatronymic())
@@ -111,7 +115,7 @@ public class StaffService {
 
         Staff staff = staffGateway.mapFormToSchema(form);
         staff.setInvitedStaff(manager);
-        staff.setClinic(manager.getClinic());
+//        staff.setClinic(manager.getClinic());
 
         return createStaff(staff);
     }
@@ -125,7 +129,7 @@ public class StaffService {
             return Results.failure(new StaffServiceException("Пароли не совпадают"));
         }
         Staff staff = staffGateway.mapFormToSchema(form);
-        staff.setClinic(staffGateway.getCurrentClinic());
+//        staff.setClinic(staffGateway.getCurrentClinic());
         staff.setPassword(staffGateway.encryptPassword(form.password()));
 
         return createStaff(staff);
@@ -147,7 +151,7 @@ public class StaffService {
 
         if (!staffGateway.sendMail(staff.getEmail(), staffGateway.templateBuilder()
                 .name("invitedStaff")
-                .payload("clinicName", staff.getClinic().getName())
+//                .payload("clinicName", staff.getClinic().getName())
                 .payload("firstname", staff.getFirstname())
                 .payload("lastname", staff.getLastname())
                 .payload("patronymic", staff.getPatronymic())

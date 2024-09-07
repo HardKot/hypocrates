@@ -21,11 +21,16 @@ import org.springframework.validation.annotation.Validated;
 @Slf4j
 @Service
 @Validated
-@RequiredArgsConstructor
 public class ClinicService {
     private final IClinicGateway clinicGateway;
 
-    private final IArrayValueStorage activateClinicCodeStorage = clinicGateway.getArrayValueStorage("clinicActivate");
+    private final IArrayValueStorage activateClinicCodeStorage;
+
+    public ClinicService(IClinicGateway clinicGateway) {
+        this.clinicGateway = clinicGateway;
+        this.activateClinicCodeStorage = clinicGateway.getArrayValueStorage("clinicActivate");
+
+    }
 
     public Result<Clinic, ClinicServiceException> createClinic(@Valid CreateClinicForm form) {
         if (!form.password().equals(form.confirmPassword())) {
@@ -47,7 +52,7 @@ public class ClinicService {
                 .build();
 
         clinic = clinicGateway.saveClinic(clinic);
-        clinicGateway.createClinicDatabase(clinicCode);
+        clinicGateway.createClinicDatabase(clinic);
         clinicGateway.saveStaff(staff);
 
         return Results.success(clinic);

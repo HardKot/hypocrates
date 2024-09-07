@@ -19,10 +19,14 @@ import java.util.UUID;
 @Slf4j
 @Service
 @Validated
-@RequiredArgsConstructor
 public class AuthService {
     private final IAuthGateway authGateway;
-    private final IArrayValueStorage refreshTokenStorage = authGateway.getArrayValueStorage("refreshToken");
+    private final IArrayValueStorage refreshTokenStorage;
+
+    public AuthService(IAuthGateway authGateway) {
+        this.authGateway = authGateway;
+        this.refreshTokenStorage = authGateway.getArrayValueStorage("refreshToken");
+    }
 
     public Result<TokenDTO, AuthServiceException> loginStaff(String email, String password) {
         Staff staff = authGateway.findStaffByEmail(email);
@@ -37,7 +41,7 @@ public class AuthService {
         String refreshToken = authGateway.tokenBuilder()
                 .payload("target", "refreshToken")
                 .payload("email", staff.getEmail())
-                .payload("clinicCode", staff.getClinic().getCode())
+//                .payload("clinicCode", staff.getClinic().getCode())
                 .id(refreshTokenID)
                 .expiration(28 * 24 * 60 )
                 .build();
@@ -45,7 +49,7 @@ public class AuthService {
         String token = authGateway.tokenBuilder()
                 .payload("target", "auth")
                 .payload("email", staff.getEmail())
-                .payload("clinicCode", staff.getClinic().getCode())
+//                .payload("clinicCode", staff.getClinic().getCode())
                 .payload("refreshTokenId", refreshTokenID.toString())
                 .expiration(30)
                 .build();
@@ -76,7 +80,7 @@ public class AuthService {
        String token = authGateway.tokenBuilder()
                 .payload("target", "auth")
                 .payload("email", staff.getEmail())
-                .payload("clinicCode", staff.getClinic().getCode())
+//                .payload("clinicCode", staff.getClinic().getCode())
                 .payload("refreshTokenId", tokenID.toString())
                 .expiration(30)
                 .build();

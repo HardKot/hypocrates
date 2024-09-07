@@ -1,5 +1,7 @@
 package com.hypocrates.hypocrates.domain.clinicManagement.entities;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -7,23 +9,28 @@ import java.util.Date;
 
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @NoArgsConstructor
+@MappedSuperclass
 public abstract class AbstractUser extends AbstractClinicEntity {
-    protected String firstname;
-    protected String lastname;
-    protected String patronymic;
-    protected Date birthday;
-    protected String avatarUrl;
+    private String firstname;
+    private String lastname;
+    private String patronymic;
+    private Date birthday;
 
-    protected String email;
-    protected String phone;
+    @Column(name = "avatar_url")
+    private String avatarUrl;
 
-    protected boolean emailIsActive;
-    protected boolean phoneIsActive;
+    private String email;
+    private String phone;
 
-    protected String password;
+    @Column(name = "email_is_active")
+    private boolean emailIsActive;
+
+    @Column(name = "phone_is_active")
+    private boolean phoneIsActive;
+
+    private String password;
 
     public Boolean getIsActive() {
         return emailIsActive;

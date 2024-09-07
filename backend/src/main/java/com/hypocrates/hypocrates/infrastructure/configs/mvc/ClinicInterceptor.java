@@ -12,7 +12,7 @@ public class ClinicInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         var clinicCodeHeader = request.getHeader("X-Clinic-Code");
         if (clinicCodeHeader != null) {
-            ClinicContext.setClinicCode(clinicCodeHeader);
+//            ClinicContext.setClinic(clinicCodeHeader);
             return true;
         }
 
@@ -22,7 +22,7 @@ public class ClinicInterceptor implements HandlerInterceptor {
         if (urlPart.length > 2) {
             clinicCode = urlPart[urlPart.length - 3];
         }
-        ClinicContext.setClinicCode(clinicCode);
+//        ClinicContext.setClinicCode(clinicCode);
 
         return true;
     }

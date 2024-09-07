@@ -1,5 +1,6 @@
 package com.hypocrates.hypocrates.domain.clinicManagement.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -17,6 +18,10 @@ public class Patient extends AbstractUser {
         Male, Female, Other
     }
 
+    @Column(name = "global_patient_id")
+    private String globalPatientId;
+
+    @Column(name = "policy_number")
     private String policyNumber;
 
     private Gender gender;

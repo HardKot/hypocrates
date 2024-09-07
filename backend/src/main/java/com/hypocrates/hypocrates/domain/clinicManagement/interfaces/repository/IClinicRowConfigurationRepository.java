@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Set;
 
 public interface IClinicRowConfigurationRepository extends JpaRepository<ClinicRowConfiguration, Long> {
-    Set<ClinicRowConfiguration> getAll();
+//    Iterable<ClinicRowConfiguration> getAll();
 }

@@ -25,7 +25,7 @@ public class ClinicGateway implements IClinicGateway {
     private final IKeyValueStorage keyValueStorage;
     private final ITemplateFacade templateFacade;
 
-    private final Function<String, Void> createClinicDatabase;
+    private final Function<Clinic, Void> createClinicDatabase;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public ClinicGateway(
@@ -36,7 +36,7 @@ public class ClinicGateway implements IClinicGateway {
             IJwtServiceFacade jwtServiceFacade,
             IKeyValueStorage keyValueStorage,
             ITemplateFacade templateFacade,
-            @Qualifier("createClinicDatabase") Function<String, Void> createClinicDatabase,
+            @Qualifier("createClinicDatabase") Function<Clinic, Void> createClinicDatabase,
             BCryptPasswordEncoder bCryptPasswordEncoder
     ) {
         this.staffRepository = staffRepository;
@@ -52,8 +52,8 @@ public class ClinicGateway implements IClinicGateway {
 
 
     @Override
-    public void createClinicDatabase(String clinicCode) {
-        this.createClinicDatabase.apply(clinicCode);
+    public void createClinicDatabase(Clinic clinic) {
+        this.createClinicDatabase.apply(clinic);
     }
 
     @Override

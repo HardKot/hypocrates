@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface ISecurityTokenRepository extends JpaRepository<SecurityToken, UUID> {
+public interface ISecurityTokenRepository extends JpaRepository<SecurityToken, Long> {
     Optional<SecurityToken> findByToken(String token);
 }

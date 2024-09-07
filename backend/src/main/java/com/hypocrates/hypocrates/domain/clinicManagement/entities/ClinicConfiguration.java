@@ -15,7 +15,7 @@ public class ClinicConfiguration {
     private boolean enabledRegistration;
 
 
-    static public ClinicConfiguration getClinicFactory(Set<ClinicRowConfiguration> rows) {
+    static public ClinicConfiguration getClinicFactory(Iterable<ClinicRowConfiguration> rows) {
         var builder = ClinicConfiguration.builder();
         rows.forEach(row -> {
             switch (row.getKey()) {

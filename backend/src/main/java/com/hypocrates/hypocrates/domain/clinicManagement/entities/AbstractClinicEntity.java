@@ -1,9 +1,6 @@
 package com.hypocrates.hypocrates.domain.clinicManagement.entities;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
@@ -18,12 +15,14 @@ import java.time.LocalDateTime;
 @SuperBuilder
 public abstract class AbstractClinicEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @LastModifiedDate
+    @Column(name = "update_at")
     private LocalDateTime updateAt;
 
     @CreatedDate
+    @Column(name = "create_at")
     private LocalDateTime createAt;
 }

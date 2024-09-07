@@ -89,7 +89,7 @@ public class StaffGateway implements IStaffGateway {
 
     @Override
     public ClinicConfiguration getClinicConfiguration() {
-        return ClinicConfiguration.getClinicFactory(configurationRepository.getAll());
+        return ClinicConfiguration.getClinicFactory(configurationRepository.findAll());
     }
 
     @Override

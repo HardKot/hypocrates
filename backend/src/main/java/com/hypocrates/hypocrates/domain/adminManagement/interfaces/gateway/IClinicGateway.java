@@ -10,7 +10,7 @@ import com.hypocrates.hypocrates.interfaces.ITemplateBuilder;
 import java.util.Optional;
 
 public interface IClinicGateway {
-    void createClinicDatabase(String clinicCode);
+    void createClinicDatabase(Clinic clinic);
 
     String getRandomString(int length);
 

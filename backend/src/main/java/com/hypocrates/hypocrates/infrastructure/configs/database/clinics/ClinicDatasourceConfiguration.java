@@ -6,14 +6,16 @@ import com.hypocrates.hypocrates.infrastructure.context.ClinicContext;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -39,20 +41,21 @@ import java.util.function.Function;
 )
 @Configuration
 public class ClinicDatasourceConfiguration {
-    @Value("${spring.jpa.show-sql}")
-    private Boolean sqlShow;
     private final Map<Object, Object> dataSources = new HashMap<>();
     private final IClinicRepository clinicSchemaRepository;
     private final ClinicRoutingDataSource clinicRoutingDataSource = new ClinicRoutingDataSource();
 
-    public ClinicDatasourceConfiguration(IClinicRepository clinicSchemaRepository) {
+    public ClinicDatasourceConfiguration(@Lazy IClinicRepository clinicSchemaRepository) {
         this.clinicSchemaRepository = clinicSchemaRepository;
     }
 
 
     @EventListener(ApplicationReadyEvent.class)
-    public void startMigration() {
-        DataSource clinicDataSource = clinicBuildDataSource("demo");
+    public void startMigration(
+    ) {
+        Function<String, DataSource> createDataSource = clinicBuildDataSource(clinicDataSourceProperties());
+
+        DataSource clinicDataSource = createDataSource.apply("demo");
         dataSources.put("demo", clinicDataSource);
         migrateClinicDatabase(clinicDataSource);
 
@@ -60,55 +63,64 @@ public class ClinicDatasourceConfiguration {
 
         for (Clinic clinicSchema : clinics) {
             String clinicCode = clinicSchema.getCode();
-            clinicDataSource = clinicBuildDataSource(clinicCode);
+            clinicDataSource = createDataSource.apply(clinicCode);
 
             dataSources.put(clinicCode, clinicDataSource);
             migrateClinicDatabase(clinicDataSource);
         }
     }
 
+    @Primary
     @Bean(name = "clinicDataSourceProperty")
-    @ConfigurationProperties("spring.datasource.clinic")
+    @ConfigurationProperties("clinic.datasource")
     public DataSourceProperties clinicDataSourceProperties() {
        return new DataSourceProperties();
     }
 
-    private DataSource clinicBuildDataSource(String clinicCode){
-        DataSourceProperties dataSourceProperties = clinicDataSourceProperties();
-        String url = dataSourceProperties.getUrl().replace("<clinic_code>", clinicCode);
+    @Bean(name = "clinicBuildDataSource")
+    public Function<String, DataSource> clinicBuildDataSource(
+            @Qualifier("clinicDataSourceProperty") DataSourceProperties dataSourceProperties) {
+        return clinicCode -> {
+            String url = dataSourceProperties.getUrl().replace("<clinic_code>", clinicCode);
 
-        return dataSourceProperties
-                .initializeDataSourceBuilder()
-                .url(url)
-                .build();
+            return dataSourceProperties
+                    .initializeDataSourceBuilder()
+                    .url(url)
+                    .build();
+        };
     }
 
+    @Primary
     @Bean(name = "clinicDataSource")
-    public DataSource clinicDataSource() {
-        dataSources.put("demo", clinicBuildDataSource("demo"));
+    public DataSource clinicDataSource(
+            @Qualifier("clinicBuildDataSource") Function<String, DataSource> createDataSource
+    ) {
+        dataSources.put("demo", createDataSource.apply("demo"));
 
         clinicRoutingDataSource.setTargetDataSources(dataSources);
-        clinicRoutingDataSource.setDefaultTargetDataSource(clinicBuildDataSource("demo"));
+        clinicRoutingDataSource.setDefaultTargetDataSource(createDataSource.apply("demo"));
 
         return clinicRoutingDataSource;
     }
 
+    @Primary
     @Bean(name = "createClinicDatabase")
-    public Function<String, Void> createClinicDatabase(
-            @Qualifier("adminDataSource") DataSource adminDataSource
+    public Function<Clinic, Void> createClinicDatabase(
+            @Qualifier("adminDataSource") DataSource adminDataSource,
+            @Qualifier("clinicBuildDataSource") Function<String, DataSource> createDataSource
     ) throws SQLException {
         var con = adminDataSource.getConnection();
         var stmt = con.createStatement();
 
-        return clinicCode -> {
+        return clinic -> {
             try {
-                stmt.execute("CREATE DATABASE app_clinic_%s;".formatted(clinicCode));
+                stmt.execute("CREATE DATABASE app_clinic_%s;".formatted(clinic.getCode()));
 
-                DataSource dataSource = clinicBuildDataSource(clinicCode);
-                dataSources.put(clinicCode, dataSource);
+                DataSource dataSource = createDataSource.apply(clinic.getCode());
+                dataSources.put(clinic.getCode(), dataSource);
                 clinicRoutingDataSource.initialize();
                 migrateClinicDatabase(dataSource);
-                ClinicContext.setClinicCode(clinicCode);
+                ClinicContext.setClinic(clinic);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -126,6 +138,7 @@ public class ClinicDatasourceConfiguration {
     }
 
     @Bean
+    @Primary
     public LocalContainerEntityManagerFactoryBean clinicEntityManagerFactory(
             @Qualifier("clinicDataSource") DataSource dataSource,
             EntityManagerFactoryBuilder builder
@@ -137,6 +150,7 @@ public class ClinicDatasourceConfiguration {
     }
 
     @Bean
+    @Primary
     public PlatformTransactionManager clinicTransactionManager(
             @Qualifier("clinicEntityManagerFactory") LocalContainerEntityManagerFactoryBean entityManagerFactory
     ) {

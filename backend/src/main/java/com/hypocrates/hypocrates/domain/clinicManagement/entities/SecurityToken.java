@@ -1,5 +1,6 @@
 package com.hypocrates.hypocrates.domain.clinicManagement.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import lombok.experimental.SuperBuilder;
 public class SecurityToken extends AbstractClinicEntity {
   private String token;
 
+  @Column(name ="is_banned")
   private boolean isBanned;
 
   private String ip;

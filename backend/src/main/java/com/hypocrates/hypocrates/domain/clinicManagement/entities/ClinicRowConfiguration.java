@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-@Entity
+@Entity(name = "clinic_row_configuration")
 @NoArgsConstructor
 public class ClinicRowConfiguration extends AbstractClinicEntity{
     private String key;

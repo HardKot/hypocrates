@@ -1,17 +1,17 @@
 package com.hypocrates.hypocrates.domain.clinicManagement.entities;
 
+//import com.hypocrates.hypocrates.domain.adminManagement.entities.Clinic;
 import com.hypocrates.hypocrates.domain.adminManagement.entities.Clinic;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "Staff")
 @SuperBuilder
 @NoArgsConstructor
 public class Staff extends AbstractUser {
@@ -19,13 +19,17 @@ public class Staff extends AbstractUser {
     private StaffRole role;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "invited_staff_id")
     private Staff invitedStaff;
 
-    @ManyToOne
-    @JoinColumn(name = "clinic_id")
-    private Clinic clinic;
+    @Column(name = "global_staff_id")
+    private String globalStaffId;
 
+    @Column(name = "date_banned")
     private Date dateBanned;
+
+    @Transient
+    private Clinic clinic;
 
     public boolean isBanned() {
         if (dateBanned == null) {

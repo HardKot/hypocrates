@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface IStaffRepository extends JpaRepository<Staff, UUID> {
+public interface IStaffRepository extends JpaRepository<Staff, Long> {
     Optional<Staff> findByEmail(String email);
 
     Optional<Staff> findAllByRole_Name(String staffRoleName);
